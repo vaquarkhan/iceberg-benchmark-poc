@@ -2266,8 +2266,8 @@ python quick_test.py</code></pre>
         </section>
     </div>
 
-    <!-- Tab 7: Wide Table Pruning -->
-    <div id="tab7" class="tab-content">
+        <!-- Tab 7: Wide Table Pruning -->
+        <div id="tab7" class="tab-content">
         <section class="experiment">
             <h2> Wide Table Pruning - Column Statistics Validation</h2>
             <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
@@ -2517,6 +2517,8 @@ python quick_test.py</code></pre>
             </div>
         </section>
     </div>
+    </div>
+    <!-- End of container -->
 
     <footer>
         <p><strong>Apache Iceberg V4 MDV Benchmark Suite</strong></p>
@@ -2528,7 +2530,15 @@ python quick_test.py</code></pre>
     </footer>
 
     <script>
+        // Add error handler
+        window.onerror = function(msg, url, lineNo, columnNo, error) {
+            console.error('Error: ' + msg + '\nURL: ' + url + '\nLine: ' + lineNo + '\nColumn: ' + columnNo + '\nError object: ' + JSON.stringify(error));
+            return false;
+        };
+
         function showTab(tabId, element) {
+            console.log('showTab called with:', tabId, element);
+            
             // Hide all tabs
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
@@ -2538,7 +2548,15 @@ python quick_test.py</code></pre>
             });
             
             // Show selected tab
-            document.getElementById(tabId).classList.add('active');
+            const targetTab = document.getElementById(tabId);
+            console.log('Target tab element:', targetTab);
+            
+            if (targetTab) {
+                targetTab.classList.add('active');
+            } else {
+                console.error('Tab not found:', tabId);
+            }
+            
             if (element) {
                 element.classList.add('active');
             }
@@ -2625,21 +2643,6 @@ python quick_test.py</code></pre>
                         animation: {
                             duration: 1500,
                             easing: 'easeInOutQuart'
-                        }
-                    }
-                });
-            }
-                        },
-                        scales: {
-                            y: {
-                                type: 'logarithmic',
-                                title: { display: true, text: 'Speedup (log scale)' },
-                                ticks: {
-                                    callback: function(value) {
-                                        return value.toLocaleString() + 'x';
-                                    }
-                                }
-                            }
                         }
                     }
                 });
