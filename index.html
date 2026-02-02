@@ -9,6 +9,7 @@
     <title>Apache Iceberg V4 MDV Benchmark Suite - Complete Results</title>
     <meta name="description" content="Comprehensive validation of Iceberg V4 Metadata Management Policy">
     <meta name="author" content="Viquar Khan">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         :root {
             --primary: #2563eb;
@@ -30,44 +31,141 @@
         .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
         header {
             text-align: center;
-            padding: 3rem 2rem;
-            background: linear-gradient(135deg, #1e40af 0%, #7c3aed 50%, #dc2626 100%);
+            padding: 4rem 2rem 3rem 2rem;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 25%, #8b5cf6 50%, #ec4899 75%, #dc2626 100%);
             color: white;
+            position: relative;
+            overflow: hidden;
         }
-        header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-        header p { opacity: 0.9; font-size: 1.2rem; }
-        .meta { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; font-size: 0.95rem; opacity: 0.85; flex-wrap: wrap; }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        header h1 { 
+            font-size: 2.8rem; 
+            margin-bottom: 0.75rem; 
+            font-weight: 800;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            letter-spacing: -0.5px;
+            position: relative;
+            z-index: 1;
+        }
+        header p { 
+            opacity: 0.95; 
+            font-size: 1.3rem; 
+            font-weight: 500;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+        .meta { 
+            display: flex; 
+            justify-content: center; 
+            gap: 2.5rem; 
+            margin-top: 2rem; 
+            font-size: 1rem; 
+            opacity: 0.9; 
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        .meta span {
+            background: rgba(255,255,255,0.15);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+        .meta span:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
         
         /* Tab Navigation */
         .tabs {
             display: flex;
             gap: 0.5rem;
             margin: 2rem 0 0 0;
-            border-bottom: 2px solid #e2e8f0;
-            background: white;
-            padding: 0 1rem;
-            border-radius: 1rem 1rem 0 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-bottom: 3px solid #e2e8f0;
+            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+            padding: 1rem 1.5rem 0 1.5rem;
+            border-radius: 1.5rem 1.5rem 0 0;
+            box-shadow: 0 -4px 12px rgba(0,0,0,0.08);
             overflow-x: auto;
+            overflow-y: hidden;
             flex-wrap: nowrap;
+            scrollbar-width: thin;
+            scrollbar-color: #3b82f6 #e0e7ff;
+        }
+        .tabs::-webkit-scrollbar {
+            height: 8px;
+        }
+        .tabs::-webkit-scrollbar-track {
+            background: linear-gradient(to right, #e0e7ff, #dbeafe);
+            border-radius: 10px;
+            margin: 0 1rem;
+        }
+        .tabs::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 10px;
+            border: 2px solid #e0e7ff;
+        }
+        .tabs::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
         }
         .tab {
             padding: 1rem 1.5rem;
             cursor: pointer;
             border: none;
-            background: none;
+            background: transparent;
             font-size: 0.9rem;
             font-weight: 600;
             color: var(--text-muted);
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
+            border-bottom: 4px solid transparent;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             white-space: nowrap;
             flex-shrink: 0;
+            border-radius: 0.75rem 0.75rem 0 0;
+            position: relative;
         }
-        .tab:hover { color: var(--primary); }
+        .tab::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+            border-radius: 2px 2px 0 0;
+        }
+        .tab:hover { 
+            color: var(--primary);
+            background: linear-gradient(to bottom, rgba(59, 130, 246, 0.08), rgba(59, 130, 246, 0.02));
+            transform: translateY(-2px);
+        }
+        .tab:hover::before {
+            width: 80%;
+        }
         .tab.active {
             color: var(--primary);
-            border-bottom-color: var(--primary);
+            background: linear-gradient(to bottom, white, #fafbff);
+            border-bottom-color: transparent;
+            box-shadow: 0 -4px 12px rgba(59, 130, 246, 0.15), 0 2px 8px rgba(0,0,0,0.05);
+            transform: translateY(-2px);
+        }
+        .tab.active::before {
+            width: 100%;
         }
         .tab-content {
             display: none;
@@ -79,17 +177,81 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 2rem 0; }
-        .card { background: var(--card-bg); border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; }
-        .card h3 { color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 0.5rem; }
-        .card .value { font-size: 2rem; font-weight: 700; }
+        .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .card { 
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); 
+            border-radius: 1rem; 
+            padding: 2rem 1.5rem; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+        .card h3 { color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; margin-bottom: 0.75rem; letter-spacing: 0.5px; font-weight: 700; }
+        .card .value { font-size: 2.5rem; font-weight: 800; line-height: 1; }
         .card .value.danger { color: var(--danger); }
         .card .value.success { color: var(--success); }
-        .card .subtitle { color: var(--text-muted); font-size: 0.8rem; margin-top: 0.5rem; }
+        .card .subtitle { color: var(--text-muted); font-size: 0.85rem; margin-top: 0.75rem; font-weight: 500; }
         
-        .experiment { background: var(--card-bg); border-radius: 1rem; padding: 2rem; margin: 2rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .experiment h2 { font-size: 1.75rem; margin-bottom: 1rem; color: var(--primary); border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
-        .experiment h3 { font-size: 1.3rem; margin: 1.5rem 0 0.75rem; color: var(--text); }
+        .experiment { 
+            background: linear-gradient(135deg, #ffffff 0%, #fafbff 100%); 
+            border-radius: 1.5rem; 
+            padding: 2.5rem; 
+            margin: 2rem 0; 
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1); 
+            border: 1px solid #e2e8f0;
+        }
+        .experiment h2 { 
+            font-size: 2rem; 
+            margin-bottom: 1.25rem; 
+            color: var(--primary); 
+            border-bottom: 3px solid #e2e8f0; 
+            padding-bottom: 0.75rem;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+        .experiment h3 { 
+            font-size: 1.4rem; 
+            margin: 2rem 0 1rem; 
+            color: var(--text); 
+            font-weight: 700;
+            position: relative;
+            padding-left: 1rem;
+        }
+        .experiment h3::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 70%;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 2px;
+        }
         
         table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
         th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
@@ -106,6 +268,28 @@
         code { background: #f1f5f9; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: 'Consolas', monospace; font-size: 0.9em; }
         pre { background: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; margin: 1rem 0; }
         pre code { background: none; padding: 0; color: inherit; }
+        
+        /* Chart container hover effects */
+        .chart-container {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .chart-container:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.15) !important;
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Alert enhancements */
+        .alert {
+            transition: all 0.3s ease;
+        }
+        .alert:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
         
         footer { text-align: center; padding: 3rem 2rem; background: #1e293b; color: #e2e8f0; margin-top: 3rem; }
         footer a { color: #60a5fa; }
@@ -209,6 +393,29 @@
                         <h3>Adaptive Policy</h3>
                         <div class="value success">100%</div>
                         <div class="subtitle">inline rate</div>
+                    </div>
+                </div>
+
+                <h3>Performance Comparison Charts</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 2.5rem; margin: 2.5rem 0;">
+                    <div class="chart-container" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); padding: 2rem; border-radius: 1.5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.12); border: 1px solid #e2e8f0;">
+                        <h4 style="text-align: center; margin-bottom: 1.5rem; color: #1e293b; font-size: 1.1rem; font-weight: 700;">📊 Speedup Comparison (Log Scale)</h4>
+                        <canvas id="speedupChart" style="max-height: 300px;"></canvas>
+                    </div>
+                    <div class="chart-container" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); padding: 2rem; border-radius: 1.5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.12); border: 1px solid #e2e8f0;">
+                        <h4 style="text-align: center; margin-bottom: 1.5rem; color: #1e293b; font-size: 1.1rem; font-weight: 700;">⚡ Throughput Metrics</h4>
+                        <canvas id="throughputChart" style="max-height: 300px;"></canvas>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 2.5rem; margin: 2.5rem 0;">
+                    <div class="chart-container" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); padding: 2rem; border-radius: 1.5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.12); border: 1px solid #e2e8f0;">
+                        <h4 style="text-align: center; margin-bottom: 1.5rem; color: #1e293b; font-size: 1.1rem; font-weight: 700;">🔄 V3 vs V4 Planning Time</h4>
+                        <canvas id="planningChart" style="max-height: 300px;"></canvas>
+                    </div>
+                    <div class="chart-container" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); padding: 2rem; border-radius: 1.5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.12); border: 1px solid #e2e8f0;">
+                        <h4 style="text-align: center; margin-bottom: 1.5rem; color: #1e293b; font-size: 1.1rem; font-weight: 700;">✅ Test Coverage</h4>
+                        <canvas id="coverageChart" style="max-height: 300px;"></canvas>
                     </div>
                 </div>
 
@@ -2312,6 +2519,317 @@ python quick_test.py</code></pre>
             document.getElementById(tabId).classList.add('active');
             event.target.classList.add('active');
         }
+
+        // Initialize charts when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Speedup Comparison Chart (Log Scale)
+            const speedupCtx = document.getElementById('speedupChart');
+            if (speedupCtx) {
+                new Chart(speedupCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Delete Storm', 'Wide Tables', 'Writer Org', 'Concurrent'],
+                        datasets: [{
+                            label: 'Speedup Factor (x)',
+                            data: [2494, 276892, 99.2, 1],
+                            backgroundColor: [
+                                'rgba(16, 185, 129, 0.85)',
+                                'rgba(59, 130, 246, 0.85)',
+                                'rgba(139, 92, 246, 0.85)',
+                                'rgba(251, 146, 60, 0.85)'
+                            ],
+                            borderColor: [
+                                'rgb(5, 150, 105)',
+                                'rgb(37, 99, 235)',
+                                'rgb(109, 40, 217)',
+                                'rgb(234, 88, 12)'
+                            ],
+                            borderWidth: 2,
+                            borderRadius: 8,
+                            borderSkipped: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                padding: 12,
+                                titleFont: { size: 14, weight: 'bold' },
+                                bodyFont: { size: 13 },
+                                borderColor: 'rgba(255, 255, 255, 0.2)',
+                                borderWidth: 1,
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.parsed.y.toLocaleString() + 'x faster';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                type: 'logarithmic',
+                                title: { 
+                                    display: true, 
+                                    text: 'Speedup (log scale)',
+                                    font: { size: 13, weight: 'bold' }
+                                },
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.05)'
+                                },
+                                ticks: {
+                                    callback: function(value) {
+                                        return value.toLocaleString() + 'x';
+                                    }
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    font: { size: 11, weight: '600' }
+                                }
+                            }
+                        },
+                        animation: {
+                            duration: 1500,
+                            easing: 'easeInOutQuart'
+                        }
+                    }
+                });
+            }
+                        },
+                        scales: {
+                            y: {
+                                type: 'logarithmic',
+                                title: { display: true, text: 'Speedup (log scale)' },
+                                ticks: {
+                                    callback: function(value) {
+                                        return value.toLocaleString() + 'x';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Throughput Chart
+            const throughputCtx = document.getElementById('throughputChart');
+            if (throughputCtx) {
+                new Chart(throughputCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Single File Commits', 'Concurrent Writers', 'Baseline'],
+                        datasets: [{
+                            data: [20366, 293, 100],
+                            backgroundColor: [
+                                'rgba(16, 185, 129, 0.85)',
+                                'rgba(59, 130, 246, 0.85)',
+                                'rgba(148, 163, 184, 0.6)'
+                            ],
+                            borderColor: [
+                                'rgb(5, 150, 105)',
+                                'rgb(37, 99, 235)',
+                                'rgb(100, 116, 139)'
+                            ],
+                            borderWidth: 3,
+                            hoverOffset: 15
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: { 
+                                position: 'bottom',
+                                labels: {
+                                    padding: 15,
+                                    font: { size: 12, weight: '600' },
+                                    usePointStyle: true,
+                                    pointStyle: 'circle'
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                padding: 12,
+                                titleFont: { size: 14, weight: 'bold' },
+                                bodyFont: { size: 13 },
+                                borderColor: 'rgba(255, 255, 255, 0.2)',
+                                borderWidth: 1,
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.label + ': ' + context.parsed.toLocaleString() + ' commits/sec';
+                                    }
+                                }
+                            }
+                        },
+                        animation: {
+                            animateRotate: true,
+                            animateScale: true,
+                            duration: 1500,
+                            easing: 'easeInOutQuart'
+                        }
+                    }
+                });
+            }
+
+            // Planning Time Comparison
+            const planningCtx = document.getElementById('planningChart');
+            if (planningCtx) {
+                new Chart(planningCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Delete Storm', 'Wide Tables'],
+                        datasets: [{
+                            label: 'V3 (External)',
+                            data: [54442, 1108],
+                            backgroundColor: 'rgba(239, 68, 68, 0.85)',
+                            borderColor: 'rgb(220, 38, 38)',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                            borderSkipped: false
+                        }, {
+                            label: 'V4 (Inline)',
+                            data: [31, 0.004],
+                            backgroundColor: 'rgba(16, 185, 129, 0.85)',
+                            borderColor: 'rgb(5, 150, 105)',
+                            borderWidth: 2,
+                            borderRadius: 8,
+                            borderSkipped: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: { 
+                                position: 'top',
+                                labels: {
+                                    padding: 15,
+                                    font: { size: 12, weight: '600' },
+                                    usePointStyle: true,
+                                    pointStyle: 'rect'
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                padding: 12,
+                                titleFont: { size: 14, weight: 'bold' },
+                                bodyFont: { size: 13 },
+                                borderColor: 'rgba(255, 255, 255, 0.2)',
+                                borderWidth: 1,
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.dataset.label + ': ' + context.parsed.y.toFixed(2) + ' ms';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                type: 'logarithmic',
+                                title: { 
+                                    display: true, 
+                                    text: 'Planning Time (ms, log scale)',
+                                    font: { size: 13, weight: 'bold' }
+                                },
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.05)'
+                                },
+                                ticks: {
+                                    callback: function(value) {
+                                        return value.toFixed(2) + ' ms';
+                                    }
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    font: { size: 11, weight: '600' }
+                                }
+                            }
+                        },
+                        animation: {
+                            duration: 1500,
+                            easing: 'easeInOutQuart'
+                        }
+                    }
+                });
+            }
+
+            // Test Coverage Radar
+            const coverageCtx = document.getElementById('coverageChart');
+            if (coverageCtx) {
+                new Chart(coverageCtx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Metadata', 'Concurrency', 'Wide Tables', 'Streaming', 'GC Safety', 'Compression'],
+                        datasets: [{
+                            label: 'Test Coverage',
+                            data: [100, 100, 100, 100, 100, 100],
+                            backgroundColor: 'rgba(59, 130, 246, 0.25)',
+                            borderColor: 'rgb(37, 99, 235)',
+                            borderWidth: 3,
+                            pointBackgroundColor: 'rgb(37, 99, 235)',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 3,
+                            pointRadius: 6,
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgb(37, 99, 235)',
+                            pointHoverRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                padding: 12,
+                                titleFont: { size: 14, weight: 'bold' },
+                                bodyFont: { size: 13 },
+                                borderColor: 'rgba(255, 255, 255, 0.2)',
+                                borderWidth: 1
+                            }
+                        },
+                        scales: {
+                            r: {
+                                beginAtZero: true,
+                                max: 100,
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.1)'
+                                },
+                                angleLines: {
+                                    color: 'rgba(0, 0, 0, 0.1)'
+                                },
+                                pointLabels: {
+                                    font: { size: 11, weight: '600' }
+                                },
+                                ticks: {
+                                    stepSize: 20,
+                                    backdropColor: 'transparent',
+                                    callback: function(value) {
+                                        return value + '%';
+                                    }
+                                }
+                            }
+                        },
+                        animation: {
+                            duration: 1500,
+                            easing: 'easeInOutQuart'
+                        }
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
+
