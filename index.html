@@ -9,7 +9,7 @@
     <title>Apache Iceberg V4 MDV Benchmark Suite - Complete Results</title>
     <meta name="description" content="Comprehensive validation of Iceberg V4 Metadata Management Policy">
     <meta name="author" content="Viquar Khan">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <style>
         :root {
             --primary: #2563eb;
@@ -2546,8 +2546,12 @@ python quick_test.py</code></pre>
 
         // Initialize charts when page loads
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing charts...');
+            console.log('Chart.js available:', typeof Chart !== 'undefined');
+            
             // Speedup Comparison Chart (Log Scale)
             const speedupCtx = document.getElementById('speedupChart');
+            console.log('speedupChart element:', speedupCtx);
             if (speedupCtx) {
                 new Chart(speedupCtx, {
                     type: 'bar',
