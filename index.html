@@ -112,14 +112,14 @@
 </head>
 <body>
     <header>
-        <h1>ðŸ§Š Apache Iceberg V4 MDV Benchmark Suite</h1>
+        <h1> Apache Iceberg V4 MDV Benchmark Suite</h1>
         <p>Complete Validation of Metadata Management Policy</p>
         <div class="meta">
-            <span>ðŸ“… February 2026</span>
-            <span>ðŸ‘¤ Viquar Khan</span>
-            <span>ðŸ“§ vaquar.khan@gmail.com</span>
-            <span>ðŸ”— <a href="https://www.linkedin.com/in/vaquar-khan-b695577/" style="color: white;">LinkedIn</a></span>
-            <span>ðŸ§ª 7 Benchmark Suites</span>
+            <span> February 2026</span>
+            <span> Viquar Khan</span>
+            <span> vaquar.khan@gmail.com</span>
+            <span> <a href="https://www.linkedin.com/in/vaquar-khan-b695577/" style="color: white;">LinkedIn</a></span>
+            <span> 7 Benchmark Suites</span>
         </div>
     </header>
 
@@ -127,41 +127,41 @@
         <!-- Tab Navigation -->
         <div class="tabs">
             <button class="tab active" onclick="showTab('tab0')">
-                ðŸ“ Writer Organization
+                 Writer Organization
             </button>
             <button class="tab" onclick="showTab('tab1')">
-                ðŸŽ¯ MDV Threshold Validation
+                 MDV Threshold Validation
             </button>
             <button class="tab" onclick="showTab('tab2')">
-                ðŸ”¬ Density-Adaptive Policy
+                 Density-Adaptive Policy
             </button>
             <button class="tab" onclick="showTab('tab3')">
-                ðŸ“ˆ Comprehensive Analysis
+                 Comprehensive Analysis
             </button>
             <button class="tab" onclick="showTab('tab4')">
-                ðŸ”€ DV Resolution Strategies
+                 DV Resolution Strategies
             </button>
             <button class="tab" onclick="showTab('tab5')">
-                âš¡ Single File Commits
+                 Single File Commits
             </button>
             <button class="tab" onclick="showTab('tab6')">
-                ðŸŒ³ Adaptive Metadata Tree
+                 Adaptive Metadata Tree
             </button>
         </div>
 
         <!-- Tab 0: Writer Organization (Original Benchmarks) -->
         <div id="tab0" class="tab-content active">
             <section class="experiment">
-                <h2>ðŸ“ Writer Organization Benchmarks</h2>
+                <h2> Writer Organization Benchmarks</h2>
                 <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
                     Proving that V4's implicit Parquet statistics require sorted data layout for effective pruning.
                 </p>
 
                 <div class="alert alert-info" style="font-size: 1.1rem;">
-                    <strong>ðŸ“„ Full Detailed Report Available:</strong> This tab contains a summary. For the complete report with 
+                    <strong> Full Detailed Report Available:</strong> This tab contains a summary. For the complete report with 
                     detailed methodology, visualizations, SVG diagrams, and all 4 experiments, please view the 
                     <a href="index_original_backup.html" target="_blank" style="font-weight: bold; text-decoration: underline;">
-                        Full Writer Organization Report â†’
+                        Full Writer Organization Report 
                     </a>
                 </div>
 
@@ -203,7 +203,7 @@
                     </div>
                 </div>
 
-                <h3>ðŸ“Š Visualizations</h3>
+                <h3> Visualizations</h3>
                 <div class="charts-grid">
                     <div class="chart-container">
                         <h4>Row Group Partition Range Span</h4>
@@ -234,25 +234,25 @@
                             <td><strong>A: Pure Parquet Simulation</strong></td>
                             <td>100K entries, measure skip rates</td>
                             <td class="highlight-bad">0% skip rate unsorted vs 99% sorted</td>
-                            <td><span class="badge badge-success">âœ… PASSED</span></td>
+                            <td><span class="badge badge-success"> PASSED</span></td>
                         </tr>
                         <tr>
                             <td><strong>B: V3 Architecture Analysis</strong></td>
                             <td>Compare explicit vs implicit stats</td>
                             <td class="highlight-good">V3 works regardless of order</td>
-                            <td><span class="badge badge-success">âœ… PASSED</span></td>
+                            <td><span class="badge badge-success"> PASSED</span></td>
                         </tr>
                         <tr>
                             <td><strong>C: V4 Root Manifest</strong></td>
                             <td>Simulate exact V4 schema</td>
                             <td class="highlight-bad">Every Row Group spans full domain</td>
-                            <td><span class="badge badge-success">âœ… PASSED</span></td>
+                            <td><span class="badge badge-success"> PASSED</span></td>
                         </tr>
                         <tr>
                             <td><strong>D: Production Scale</strong></td>
                             <td>Extrapolate to real workloads</td>
                             <td class="highlight-bad">99.2x I/O amplification</td>
-                            <td><span class="badge badge-success">âœ… PASSED</span></td>
+                            <td><span class="badge badge-success"> PASSED</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -263,7 +263,7 @@
                     query planning regression.
                 </div>
 
-                <h3>ðŸ“ˆ What's in the Full Report</h3>
+                <h3> What's in the Full Report</h3>
                 <ul style="margin-left: 1.5rem; line-height: 1.8;">
                     <li><strong>Executive Summary</strong> - Complete problem statement and findings</li>
                     <li><strong>Benchmark Methodology</strong> - Detailed data generation and measurement process</li>
@@ -279,13 +279,13 @@
                 
                 <div class="alert alert-success" style="margin-top: 2rem;">
                     <strong>External Validation:</strong> Independent design review confirmed <strong>30x degradation</strong> 
-                    in query planning performance for unsorted streaming workloadsâ€”consistent with our 99.2x bytes reduction finding.
+                    in query planning performance for unsorted streaming workloadsconsistent with our 99.2x bytes reduction finding.
                 </div>
 
                 <div class="alert alert-info" style="margin-top: 1.5rem; font-size: 1.1rem;">
-                    <strong>ðŸ‘‰ View Full Report:</strong> 
+                    <strong> View Full Report:</strong> 
                     <a href="index_original_backup.html" target="_blank" style="font-weight: bold; text-decoration: underline;">
-                        Click here for the complete Writer Organization report with all details, diagrams, and experiments â†’
+                        Click here for the complete Writer Organization report with all details, diagrams, and experiments 
                     </a>
                 </div>
             </section>
@@ -294,7 +294,7 @@
         <!-- Tab 1: MDV Threshold Validation -->
         <div id="tab1" class="tab-content">
             <section class="experiment">
-                <h2>ðŸŽ¯ MDV Threshold Validation</h2>
+                <h2> MDV Threshold Validation</h2>
                 <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
                     Validating the physical inflection points (4KB and 10MB) for MDV inlining policy.
                 </p>
@@ -360,7 +360,7 @@
 
                 <div class="alert alert-info">
                     <strong>Why 4KB?</strong> S3 TTFB (~55ms) dominates for small files. Fetching 1,000 external MDV files 
-                    requires 1,000 Ã— 55ms = 55 seconds of TTFB overhead alone. Inlining eliminates this entirely.
+                    requires 1,000  55ms = 55 seconds of TTFB overhead alone. Inlining eliminates this entirely.
                 </div>
 
                 <h3>Test 2: GC Performance Cliff (10MB Threshold)</h3>
@@ -374,84 +374,84 @@
                             <td>1.17</td>
                             <td>0.00</td>
                             <td><span class="badge badge-success">NO</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success"> NO</span></td>
                         </tr>
                         <tr>
                             <td>2.0</td>
                             <td>2.01</td>
                             <td>0.00</td>
                             <td><span class="badge badge-success">NO</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success"> NO</span></td>
                         </tr>
                         <tr>
                             <td>4.0</td>
                             <td>4.01</td>
                             <td>0.00</td>
                             <td><span class="badge badge-success">NO</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success"> NO</span></td>
                         </tr>
                         <tr>
                             <td>6.0</td>
                             <td>6.01</td>
                             <td>0.00</td>
                             <td><span class="badge badge-success">NO</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success"> NO</span></td>
                         </tr>
                         <tr>
                             <td>8.0</td>
                             <td>9.56</td>
                             <td>0.00</td>
                             <td><span class="badge badge-success">NO</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success"> NO</span></td>
                         </tr>
                         <tr>
                             <td>10.0</td>
                             <td>8.38</td>
                             <td>0.00</td>
                             <td><span class="badge badge-danger">YES</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success"> NO</span></td>
                         </tr>
                         <tr>
                             <td>12.0</td>
                             <td>13.56</td>
                             <td>0.00</td>
                             <td><span class="badge badge-danger">YES</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success"> NO</span></td>
                         </tr>
                         <tr>
                             <td>15.0</td>
                             <td>13.45</td>
                             <td>0.00</td>
                             <td><span class="badge badge-danger">YES</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success"> NO</span></td>
                         </tr>
                         <tr>
                             <td>20.0</td>
                             <td>21.56</td>
                             <td>0.00</td>
                             <td><span class="badge badge-danger">YES</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success"> NO</span></td>
                         </tr>
                         <tr>
                             <td>30.0</td>
                             <td>28.45</td>
                             <td>0.00</td>
                             <td><span class="badge badge-danger">YES</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success"> NO</span></td>
                         </tr>
                         <tr>
                             <td>40.0</td>
                             <td>41.56</td>
                             <td>0.00</td>
                             <td><span class="badge badge-danger">YES</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success"> NO</span></td>
                         </tr>
                         <tr>
                             <td>50.0</td>
                             <td>48.45</td>
                             <td>0.00</td>
                             <td><span class="badge badge-danger">YES</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success"> NO</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -462,7 +462,7 @@
                     and Stop-The-World pauses.
                 </div>
 
-                <h3>ðŸ“Š Conclusion</h3>
+                <h3> Conclusion</h3>
                 <div class="alert alert-success">
                     <strong>Validated:</strong> Both thresholds are physical inflection points:
                     <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
@@ -477,7 +477,7 @@
         <!-- Tab 2: Density-Adaptive Policy -->
         <div id="tab2" class="tab-content">
             <section class="experiment">
-                <h2>ðŸ”¬ Density-Adaptive Policy Validation</h2>
+                <h2> Density-Adaptive Policy Validation</h2>
                 <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
                     Testing the complete three-rule MDV spill-over strategy with Roaring Bitmap containers.
                 </p>
@@ -652,21 +652,21 @@
                     accumulation (Scenario C) with 100% inline rate and single-digit to sub-second planning times.
                 </div>
 
-                <h3>ðŸ“Š Policy Validation</h3>
+                <h3> Policy Validation</h3>
                 <div class="summary-grid">
                     <div class="card">
                         <h3>Byte Floor</h3>
-                        <div class="value success">âœ…</div>
+                        <div class="value success"></div>
                         <div class="subtitle">Protects against TTFB</div>
                     </div>
                     <div class="card">
                         <h3>Global Cap</h3>
-                        <div class="value success">âœ…</div>
+                        <div class="value success"></div>
                         <div class="subtitle">Prevents OOM</div>
                     </div>
                     <div class="card">
                         <h3>Container Heuristic</h3>
-                        <div class="value success">âœ…</div>
+                        <div class="value success"></div>
                         <div class="subtitle">Optimizes compression</div>
                     </div>
                     <div class="card">
@@ -682,7 +682,7 @@
                     all workload patterns effectively.
                 </div>
 
-                <h3>ðŸ”§ Implementation Status</h3>
+                <h3> Implementation Status</h3>
                 <div class="alert alert-warning">
                     <strong>Note:</strong> This benchmark uses simulated Roaring Bitmaps. For production implementation, 
                     install <code>pyroaring</code> library for actual Roaring Bitmap container behavior.
@@ -694,7 +694,7 @@
         <!-- Tab 3: Comprehensive Analysis -->
         <div id="tab3" class="tab-content">
             <section class="experiment">
-                <h2>ðŸ“ˆ Comprehensive Analysis & Recommendations</h2>
+                <h2> Comprehensive Analysis & Recommendations</h2>
                 <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
                     Cross-cutting insights from all benchmark suites and actionable recommendations for Iceberg V4.
                 </p>
@@ -705,7 +705,7 @@
                     dictate optimal thresholds, not arbitrary choices.
                 </div>
 
-                <h3>ðŸŽ¯ Key Findings Summary</h3>
+                <h3> Key Findings Summary</h3>
                 <table>
                     <thead>
                         <tr><th>Benchmark Suite</th><th>Key Finding</th><th>Impact</th><th>Status</th></tr>
@@ -715,30 +715,30 @@
                             <td><strong>Writer Organization</strong></td>
                             <td>Unsorted data causes 0% skip rate</td>
                             <td class="highlight-bad">99.2x I/O amplification</td>
-                            <td><span class="badge badge-success">âœ… VALIDATED</span></td>
+                            <td><span class="badge badge-success"> VALIDATED</span></td>
                         </tr>
                         <tr>
                             <td><strong>Delete Storm (4KB)</strong></td>
                             <td>S3 TTFB dominates small files</td>
                             <td class="highlight-good">2,370x speedup inline</td>
-                            <td><span class="badge badge-success">âœ… VALIDATED</span></td>
+                            <td><span class="badge badge-success"> VALIDATED</span></td>
                         </tr>
                         <tr>
                             <td><strong>GC Cliff (10MB)</strong></td>
                             <td>Humongous objects trigger at 10MB</td>
                             <td class="highlight-warning">GC pressure above threshold</td>
-                            <td><span class="badge badge-success">âœ… VALIDATED</span></td>
+                            <td><span class="badge badge-success"> VALIDATED</span></td>
                         </tr>
                         <tr>
                             <td><strong>Density-Adaptive</strong></td>
                             <td>3-rule policy handles all workloads</td>
                             <td class="highlight-good">100% inline rate achieved</td>
-                            <td><span class="badge badge-success">âœ… VALIDATED</span></td>
+                            <td><span class="badge badge-success"> VALIDATED</span></td>
                         </tr>
                     </tbody>
                 </table>
 
-                <h3>ðŸ“Š Performance Metrics Comparison</h3>
+                <h3> Performance Metrics Comparison</h3>
                 <div class="summary-grid">
                     <div class="card">
                         <h3>Max Speedup</h3>
@@ -762,7 +762,7 @@
                     </div>
                 </div>
 
-                <h3>ðŸ”¬ Physical Constraints Validated</h3>
+                <h3> Physical Constraints Validated</h3>
                 <table>
                     <thead>
                         <tr><th>Constraint</th><th>Source</th><th>Threshold</th><th>Validation Method</th></tr>
@@ -795,7 +795,7 @@
                     </tbody>
                 </table>
 
-                <h3>ðŸ’¡ Recommendations for Iceberg V4</h3>
+                <h3> Recommendations for Iceberg V4</h3>
                 
                 <div class="alert alert-info">
                     <strong>Recommendation 1: Adopt Density-Adaptive MDV Policy</strong>
@@ -838,7 +838,7 @@
                     </ul>
                 </div>
 
-                <h3>ðŸš€ Next Steps</h3>
+                <h3> Next Steps</h3>
                 <table>
                     <thead>
                         <tr><th>Priority</th><th>Action Item</th><th>Owner</th><th>Timeline</th></tr>
@@ -877,7 +877,7 @@
                     </tbody>
                 </table>
 
-                <h3>ðŸ“š References & Resources</h3>
+                <h3> References & Resources</h3>
                 <ul style="margin-left: 1.5rem;">
                     <li><strong>Roaring Bitmaps:</strong> <a href="https://roaringbitmap.org/" target="_blank">https://roaringbitmap.org/</a></li>
                     <li><strong>G1GC Humongous Objects:</strong> <a href="https://docs.oracle.com/en/java/javase/11/gctuning/garbage-first-garbage-collector.html" target="_blank">Oracle G1GC Documentation</a></li>
@@ -898,7 +898,7 @@
         <!-- Tab 4: DV Resolution Strategies -->
         <div id="tab4" class="tab-content">
             <section class="experiment">
-                <h2>ðŸ”€ DV Resolution Strategies</h2>
+                <h2> DV Resolution Strategies</h2>
                 <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
                     Benchmarking V4 architectural choices for DV-to-data-file resolution based on Apache Iceberg 
                     community discussion (Anton Okolnychyi, Anoop Johnson, Steven Wu).
@@ -1104,27 +1104,27 @@
                     write-heavy workloads. The read benefits don't justify this cost.
                 </div>
 
-                <h3>ðŸ“Š Architectural Recommendations</h3>
+                <h3> Architectural Recommendations</h3>
                 
                 <div class="summary-grid">
                     <div class="card">
                         <h3>Hash Join</h3>
-                        <div class="value">âš ï¸</div>
+                        <div class="value"></div>
                         <div class="subtitle">5-10% overhead validated</div>
                     </div>
                     <div class="card">
                         <h3>Positional Join</h3>
-                        <div class="value success">âœ…</div>
+                        <div class="value success"></div>
                         <div class="subtitle">1.3x faster, 87% less memory</div>
                     </div>
                     <div class="card">
                         <h3>Folded DVs</h3>
-                        <div class="value success">âœ…</div>
+                        <div class="value success"></div>
                         <div class="subtitle">50% I/O reduction</div>
                     </div>
                     <div class="card">
                         <h3>Order-Preserving</h3>
-                        <div class="value danger">âŒ</div>
+                        <div class="value danger"></div>
                         <div class="subtitle">22,000% write overhead</div>
                     </div>
                 </div>
@@ -1169,7 +1169,7 @@
                     </ul>
                 </div>
 
-                <h3>ðŸŽ¯ Community Discussion Impact</h3>
+                <h3> Community Discussion Impact</h3>
                 <table>
                     <thead>
                         <tr><th>Proposal</th><th>Author</th><th>Benchmark Result</th><th>Recommendation</th></tr>
@@ -1185,19 +1185,19 @@
                             <td>Positional join</td>
                             <td>Anoop Johnson</td>
                             <td class="highlight-good">1.3x faster, 87% less memory</td>
-                            <td><span class="badge badge-success">âœ… ADOPT</span></td>
+                            <td><span class="badge badge-success"> ADOPT</span></td>
                         </tr>
                         <tr>
                             <td>Folded DVs (column-split)</td>
                             <td>Steven Wu</td>
                             <td class="highlight-good">50% I/O reduction</td>
-                            <td><span class="badge badge-success">âœ… ADOPT</span></td>
+                            <td><span class="badge badge-success"> ADOPT</span></td>
                         </tr>
                         <tr>
                             <td>Order-preserving manifests</td>
                             <td>Anoop Johnson</td>
                             <td class="highlight-bad">22,000% write overhead</td>
-                            <td><span class="badge badge-danger">âŒ REJECT</span></td>
+                            <td><span class="badge badge-danger"> REJECT</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -1218,7 +1218,7 @@
         <!-- Tab 5: Single File Commits Performance -->
         <div id="tab5" class="tab-content">
             <section class="experiment">
-                <h2>âš¡ Single File Commits Performance</h2>
+                <h2> Single File Commits Performance</h2>
                 <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
                     Real measurements of commit latency and metadata overhead for streaming workloads.
                     <strong>100% Real Data - No Simulations</strong>
@@ -1366,7 +1366,7 @@
                     far outweighs this cost for read-heavy workloads.
                 </div>
 
-                <h3>ðŸ“Š Recommendations</h3>
+                <h3> Recommendations</h3>
                 
                 <div class="alert alert-success">
                     <strong>Recommendation 1: Single File Commits are Viable</strong>
@@ -1395,15 +1395,15 @@
                     </ul>
                 </div>
 
-                <h3>ðŸ”¬ Measurement Methodology</h3>
+                <h3> Measurement Methodology</h3>
                 <div class="alert alert-info">
                     <strong>100% Real Measurements:</strong>
                     <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
-                        <li>âœ… Actual file I/O operations (not simulated)</li>
-                        <li>âœ… Real JSON serialization/deserialization</li>
-                        <li>âœ… Measured wall-clock time with <code>time.perf_counter()</code></li>
-                        <li>âœ… Actual memory usage with <code>psutil.Process().memory_info()</code></li>
-                        <li>âœ… Real file sizes with <code>os.path.getsize()</code></li>
+                        <li> Actual file I/O operations (not simulated)</li>
+                        <li> Real JSON serialization/deserialization</li>
+                        <li> Measured wall-clock time with <code>time.perf_counter()</code></li>
+                        <li> Actual memory usage with <code>psutil.Process().memory_info()</code></li>
+                        <li> Real file sizes with <code>os.path.getsize()</code></li>
                     </ul>
                 </div>
             </section>
@@ -1412,7 +1412,7 @@
         <!-- Tab 6: Adaptive Metadata Tree -->
         <div id="tab6" class="tab-content">
             <section class="experiment">
-                <h2>ðŸŒ³ Adaptive Metadata Tree</h2>
+                <h2> Adaptive Metadata Tree</h2>
                 <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
                     Real measurements of different manifest tree structures and their query performance.
                     <strong>100% Real Data - No Simulations</strong>
@@ -1437,7 +1437,7 @@
                             <td>Flat (1-level)</td>
                             <td class="highlight-good">48.46 ms</td>
                             <td>1</td>
-                            <td><span class="badge badge-success">âœ… BEST</span></td>
+                            <td><span class="badge badge-success"> BEST</span></td>
                         </tr>
                         <tr>
                             <td>2-level</td>
@@ -1449,7 +1449,7 @@
                             <td>3-level</td>
                             <td class="highlight-bad">376.64 ms</td>
                             <td>12</td>
-                            <td><span class="badge badge-danger">âŒ WORST</span></td>
+                            <td><span class="badge badge-danger"> WORST</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -1464,7 +1464,7 @@
                             <td>Flat (1-level)</td>
                             <td class="highlight-good">98.86 ms</td>
                             <td>1</td>
-                            <td><span class="badge badge-success">âœ… BEST</span></td>
+                            <td><span class="badge badge-success"> BEST</span></td>
                         </tr>
                         <tr>
                             <td>2-level</td>
@@ -1476,7 +1476,7 @@
                             <td>3-level</td>
                             <td class="highlight-bad">3,280.73 ms</td>
                             <td>111</td>
-                            <td><span class="badge badge-danger">âŒ WORST</span></td>
+                            <td><span class="badge badge-danger"> WORST</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -1491,7 +1491,7 @@
                             <td>Flat (1-level)</td>
                             <td class="highlight-good">355.86 ms</td>
                             <td>1</td>
-                            <td><span class="badge badge-success">âœ… BEST</span></td>
+                            <td><span class="badge badge-success"> BEST</span></td>
                         </tr>
                         <tr>
                             <td>2-level</td>
@@ -1503,7 +1503,7 @@
                             <td>3-level</td>
                             <td class="highlight-bad">16,658.78 ms</td>
                             <td>551</td>
-                            <td><span class="badge badge-danger">âŒ WORST</span></td>
+                            <td><span class="badge badge-danger"> WORST</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -1567,7 +1567,7 @@
                     The I/O cost of reading multiple manifests dominates any pruning benefit.
                 </div>
 
-                <h3>ðŸ“Š Analysis: Why Flat Wins</h3>
+                <h3> Analysis: Why Flat Wins</h3>
                 
                 <div style="background: #eff6ff; padding: 1.5rem; border-radius: 0.5rem; margin: 1rem 0;">
                     <h4 style="color: #1e40af; margin-bottom: 1rem;">The I/O Bottleneck</h4>
@@ -1578,7 +1578,7 @@
                         <li><strong>Memory allocation:</strong> Additional GC pressure</li>
                     </ul>
                     <p style="margin-top: 1rem;">
-                        For 10K files, 2-level tree reads 11 manifests = 11 Ã— 7ms = <strong>77ms overhead</strong> 
+                        For 10K files, 2-level tree reads 11 manifests = 11  7ms = <strong>77ms overhead</strong> 
                         just from I/O, before any actual query planning!
                     </p>
                 </div>
@@ -1597,7 +1597,7 @@
                     </p>
                 </div>
 
-                <h3>ðŸ“ˆ Recommendations</h3>
+                <h3> Recommendations</h3>
                 
                 <div class="alert alert-success">
                     <strong>Recommendation 1: Use Flat Structure for Most Tables</strong>
@@ -1628,15 +1628,15 @@
                     </ul>
                 </div>
 
-                <h3>ðŸ”¬ Measurement Methodology</h3>
+                <h3> Measurement Methodology</h3>
                 <div class="alert alert-info">
                     <strong>100% Real Measurements:</strong>
                     <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
-                        <li>âœ… Actual file tree creation (not simulated)</li>
-                        <li>âœ… Real JSON file I/O operations</li>
-                        <li>âœ… Measured query traversal time with <code>time.perf_counter()</code></li>
-                        <li>âœ… Actual manifest reads counted</li>
-                        <li>âœ… Real memory usage tracked with <code>psutil</code></li>
+                        <li> Actual file tree creation (not simulated)</li>
+                        <li> Real JSON file I/O operations</li>
+                        <li> Measured query traversal time with <code>time.perf_counter()</code></li>
+                        <li> Actual manifest reads counted</li>
+                        <li> Real memory usage tracked with <code>psutil</code></li>
                     </ul>
                 </div>
             </section>
@@ -1644,7 +1644,7 @@
 
         <!-- Reproducibility Section (Common to all tabs) -->
         <section class="experiment">
-            <h2>ðŸ”§ Reproducibility</h2>
+            <h2> Reproducibility</h2>
             <p>All benchmarks are fully reproducible. Clone the repository and run the tests:</p>
             <pre><code># Clone repository
 git clone https://github.com/vaquar/iceberg-benchmark-poc.git
@@ -1667,7 +1667,7 @@ python test_adaptive_metadata_tree.py  # Tab 6: Tree structures
 # Quick test (faster)
 python quick_test.py</code></pre>
 
-            <h3>ðŸ“Š Results Location</h3>
+            <h3> Results Location</h3>
             <p>All results are saved to <code>poc/results/</code>:</p>
             <ul style="margin-left: 1.5rem;">
                 <li><code>delete_storm_results.json</code> - 4KB threshold validation</li>
