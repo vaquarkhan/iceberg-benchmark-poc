@@ -1,0 +1,49 @@
+{
+  "test_name": "Parallel S3 Fetching Impact",
+  "scenario": "Delete Storm (1,000 files, 24 bytes each)",
+  "s3_ttfb_ms": 55,
+  "inline_planning_time_ms": 23.77,
+  "configurations": [
+    {
+      "strategy": "Sequential",
+      "threads": 1,
+      "time_ms": 55833.79,
+      "speedup_vs_inline": 2348.9
+    },
+    {
+      "strategy": "Parallel (10 threads)",
+      "threads": 10,
+      "time_ms": 5625.79,
+      "speedup_vs_inline": 236.7,
+      "reduction_vs_sequential_pct": 89.9
+    },
+    {
+      "strategy": "Parallel (25 threads)",
+      "threads": 25,
+      "time_ms": 2267.02,
+      "speedup_vs_inline": 95.4,
+      "reduction_vs_sequential_pct": 95.9
+    },
+    {
+      "strategy": "Parallel (50 threads)",
+      "threads": 50,
+      "time_ms": 1194.75,
+      "speedup_vs_inline": 50.3,
+      "reduction_vs_sequential_pct": 97.9
+    },
+    {
+      "strategy": "Parallel (100 threads)",
+      "threads": 100,
+      "time_ms": 656.02,
+      "speedup_vs_inline": 27.6,
+      "reduction_vs_sequential_pct": 98.8
+    }
+  ],
+  "summary": {
+    "sequential_speedup": 2348.9,
+    "best_parallel_speedup": 27.6,
+    "best_parallel_threads": 100,
+    "parallelism_benefit_pct": 98.8,
+    "conclusion": "Inline MDVs are 27.6x faster than parallel fetching (realistic)"
+  }
+}

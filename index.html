@@ -377,7 +377,7 @@
                 <div class="info-card" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(59, 130, 246, 0.3)); padding: 1.25rem; border-radius: 1rem; backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.3); text-align: center; box-shadow: 0 8px 16px rgba(0,0,0,0.2);">
                     <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎯</div>
                     <div style="font-size: 0.85rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.25rem;">Test Suites</div>
-                    <div style="font-size: 1.8rem; font-weight: 800;">9</div>
+                    <div style="font-size: 1.8rem; font-weight: 800;">10</div>
                 </div>
             </div>
         </div>
@@ -435,8 +435,8 @@
                 <div class="summary-grid">
                     <div class="card">
                         <h3>Delete Storm</h3>
-                        <div class="value success">2,494x</div>
-                        <div class="subtitle">inline speedup</div>
+                        <div class="value success">28x</div>
+                        <div class="subtitle">realistic speedup (parallel I/O)</div>
                     </div>
                     <div class="card">
                         <h3>Writer Organization</h3>
@@ -493,7 +493,7 @@
                 <div class="alert alert-success">
                     <strong>✅ Positive Results:</strong>
                     <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
-                        <li><strong>Inline MDVs:</strong> 2,494x faster than external storage for small files</li>
+                        <li><strong>Inline MDVs:</strong> 28x faster than parallel external fetching (100 threads) - eliminates 1,000 S3 requests</li>
                         <li><strong>Wide Tables:</strong> 276,892x speedup eliminates Parquet footer overhead</li>
                         <li><strong>Adaptive Tree:</strong> Maintains O(1) commit time with flush/split logic</li>
                         <li><strong>Concurrent Writers:</strong> 293 commits/sec with 26% conflict rate</li>
@@ -676,7 +676,13 @@
                         <tr>
                             <td><strong>MDV Threshold (4KB)</strong></td>
                             <td>S3 TTFB dominates for small files</td>
-                            <td>2,494x speedup inline</td>
+                            <td>28x speedup (parallel)</td>
+                            <td><span class="badge badge-success">PASS</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Parallel S3 Fetching</strong></td>
+                            <td>Realistic speedup with concurrent I/O</td>
+                            <td>28x with 100 threads</td>
                             <td><span class="badge badge-success">PASS</span></td>
                         </tr>
                         <tr>
@@ -781,18 +787,22 @@
                 </div>
 
                 <h4>1. Sequential vs Parallel S3 Fetching</h4>
-                <div class="alert alert-info">
-                    <strong>Current Implementation:</strong> The S3 latency simulator uses sequential <code>time.sleep()</code> 
-                    calls to model TTFB overhead, accumulating full latency for each file.
+                <div class="alert alert-success">
+                    <strong>✅ ADDRESSED:</strong> New parallel fetching test added to validate realistic speedup.
                     <br><br>
-                    <strong>Real-World Behavior:</strong> Production engines (Trino, Spark) parallelize S3 reads with thread pools. 
-                    While TTFB overhead remains, wall-clock time would be lower with concurrent fetching.
+                    <strong>Test Results (1,000 files, 55ms TTFB):</strong>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li>Sequential: 55,834 ms (2,349x slower than inline)</li>
+                        <li>Parallel (10 threads): 5,626 ms (237x slower)</li>
+                        <li>Parallel (50 threads): 1,195 ms (50x slower)</li>
+                        <li>Parallel (100 threads): 656 ms (28x slower)</li>
+                        <li>Inline: 23.77 ms</li>
+                    </ul>
+                    <strong>Conclusion:</strong> Even with aggressive parallelism (100 threads), inline MDVs are <strong>28x faster</strong>. 
+                    The benefit comes from eliminating 1,000 S3 requests entirely, not just reducing latency.
                     <br><br>
-                    <strong>Impact on Results:</strong> The 2,494x speedup for inline MDVs is conservative. Parallel fetching 
-                    would reduce the gap, but inline strategy still wins due to eliminating 1,000 S3 requests entirely.
-                    <br><br>
-                    <strong>Future Work:</strong> Model thread pool with configurable concurrency (e.g., 10-50 parallel connections) 
-                    to provide realistic speedup factors for different engine configurations.
+                    <strong>Updated Claim:</strong> Inline MDVs provide <strong>28x speedup</strong> in realistic production 
+                    environments with parallel I/O (conservative estimate).
                 </div>
 
                 <h4>2. JVM GC Simulation in Python</h4>
