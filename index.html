@@ -278,6 +278,28 @@
             box-shadow: 0 12px 32px rgba(0,0,0,0.15) !important;
         }
         
+        /* Charts grid for images */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .charts-grid .chart-container {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+        }
+        .charts-grid .chart-container h4 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #1e293b;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+        
         /* Smooth scrolling */
         html {
             scroll-behavior: smooth;
@@ -317,34 +339,34 @@
     <div class="container">
         <!-- Tab Navigation -->
         <div class="tabs">
-            <button class="tab active" onclick="showTab('summary')">
+            <button class="tab active" onclick="showTab('summary', this)">
                  Summary
             </button>
-            <button class="tab" onclick="showTab('tab0')">
+            <button class="tab" onclick="showTab('tab0', this)">
                  Writer Organization
             </button>
-            <button class="tab" onclick="showTab('tab1')">
+            <button class="tab" onclick="showTab('tab1', this)">
                  MDV Threshold Validation
             </button>
-            <button class="tab" onclick="showTab('tab2')">
+            <button class="tab" onclick="showTab('tab2', this)">
                  Density-Adaptive Policy
             </button>
-            <button class="tab" onclick="showTab('tab3')">
+            <button class="tab" onclick="showTab('tab3', this)">
                  Comprehensive Analysis
             </button>
-            <button class="tab" onclick="showTab('tab4')">
+            <button class="tab" onclick="showTab('tab4', this)">
                  DV Resolution Strategies
             </button>
-            <button class="tab" onclick="showTab('tab5')">
+            <button class="tab" onclick="showTab('tab5', this)">
                  Single File Commits
             </button>
-            <button class="tab" onclick="showTab('tab6')">
+            <button class="tab" onclick="showTab('tab6', this)">
                  Adaptive Metadata Tree
             </button>
-            <button class="tab" onclick="showTab('tab7')">
+            <button class="tab" onclick="showTab('tab7', this)">
                  Wide Table Pruning
             </button>
-            <button class="tab" onclick="showTab('tab8')">
+            <button class="tab" onclick="showTab('tab8', this)">
                  Concurrent Writers
             </button>
         </div>
@@ -2506,7 +2528,7 @@ python quick_test.py</code></pre>
     </footer>
 
     <script>
-        function showTab(tabId) {
+        function showTab(tabId, element) {
             // Hide all tabs
             document.querySelectorAll('.tab-content').forEach(tab => {
                 tab.classList.remove('active');
@@ -2517,7 +2539,9 @@ python quick_test.py</code></pre>
             
             // Show selected tab
             document.getElementById(tabId).classList.add('active');
-            event.target.classList.add('active');
+            if (element) {
+                element.classList.add('active');
+            }
         }
 
         // Initialize charts when page loads
