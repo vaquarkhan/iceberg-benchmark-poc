@@ -1,0 +1,10 @@
+{
+  "num_columns": 500,
+  "num_files": 50,
+  "v3_planning_time_ms": 1107.5664999989385,
+  "v4_planning_time_ms": 0.0040000013541430235,
+  "v3_footers_read": 50,
+  "v4_footers_read": 0,
+  "parquet_footer_size_kb": 0.20703125,
+  "speedup_factor": 276891.5312620508
+}

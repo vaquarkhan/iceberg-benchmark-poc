@@ -1,0 +1,10 @@
+{
+  "num_writers": 5,
+  "writes_per_writer": 50,
+  "total_writes": 250,
+  "successful_commits": 250,
+  "failed_commits": 0,
+  "conflict_rate": 0.264,
+  "avg_commit_latency_ms": 3.1374739999737358,
+  "throughput_commits_per_sec": 293.35031166672854
+}

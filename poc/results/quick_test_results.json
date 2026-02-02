@@ -1,0 +1,58 @@
+{
+  "timestamp": "2026-02-02T12:41:00.568262",
+  "tests": {
+    "delete_storm": {
+      "status": "completed",
+      "result": {
+        "num_files": 1000,
+        "mdv_size_bytes": 31,
+        "inline_planning_time_ms": 21.070400001917733,
+        "external_planning_time_ms": 52550.607900000614,
+        "inline_metadata_reads": 1,
+        "external_metadata_reads": 1001,
+        "s3_ttfb_avg_ms": 51.983504363135836,
+        "speedup_factor": 2494.0488977531368
+      }
+    },
+    "concurrent_writers": {
+      "status": "completed",
+      "result": {
+        "num_writers": 5,
+        "writes_per_writer": 50,
+        "total_writes": 250,
+        "successful_commits": 250,
+        "failed_commits": 0,
+        "conflict_rate": 0.264,
+        "avg_commit_latency_ms": 3.1374739999737358,
+        "throughput_commits_per_sec": 293.35031166672854
+      }
+    },
+    "wide_table": {
+      "status": "completed",
+      "result": {
+        "num_columns": 500,
+        "num_files": 50,
+        "v3_planning_time_ms": 1107.5664999989385,
+        "v4_planning_time_ms": 0.0040000013541430235,
+        "v3_footers_read": 50,
+        "v4_footers_read": 0,
+        "parquet_footer_size_kb": 0.20703125,
+        "speedup_factor": 276891.5312620508
+      }
+    },
+    "adaptive_tree": {
+      "status": "completed",
+      "result": {
+        "total_entries": 100,
+        "inline_entries": 100,
+        "leaf_manifests": 0,
+        "tree_depth": 1,
+        "root_size_bytes": 224800,
+        "is_flat": true,
+        "total_commits": 100,
+        "total_flushes": 0,
+        "flush_rate": 0.0
+      }
+    }
+  }
+}
