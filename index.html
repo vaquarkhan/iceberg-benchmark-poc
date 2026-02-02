@@ -48,17 +48,21 @@
             padding: 0 1rem;
             border-radius: 1rem 1rem 0 0;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow-x: auto;
+            flex-wrap: nowrap;
         }
         .tab {
-            padding: 1rem 2rem;
+            padding: 1rem 1.5rem;
             cursor: pointer;
             border: none;
             background: none;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             color: var(--text-muted);
             border-bottom: 3px solid transparent;
             transition: all 0.3s;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         .tab:hover { color: var(--primary); }
         .tab.active {
@@ -206,6 +210,37 @@
                         <div class="value success">100%</div>
                         <div class="subtitle">inline rate</div>
                     </div>
+                </div>
+
+                <h3>Critical Findings</h3>
+                
+                <div class="alert alert-success">
+                    <strong>✅ Positive Results:</strong>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li><strong>Inline MDVs:</strong> 2,494x faster than external storage for small files</li>
+                        <li><strong>Wide Tables:</strong> 276,892x speedup eliminates Parquet footer overhead</li>
+                        <li><strong>Adaptive Tree:</strong> Maintains O(1) commit time with flush/split logic</li>
+                        <li><strong>Concurrent Writers:</strong> 293 commits/sec with 26% conflict rate</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-danger">
+                    <strong>⚠️ Critical Issues Identified:</strong>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li><strong>Unsorted Data:</strong> V4 provides ZERO pruning (0% skip rate) without sorted layout - causes O(N) planning regression</li>
+                        <li><strong>External MDVs:</strong> 54 seconds planning time for 1,000 files due to S3 TTFB overhead</li>
+                        <li><strong>High Concurrency:</strong> 65% conflict rate with 20 writers - requires partition-level locking</li>
+                        <li><strong>Policy CPU Cost:</strong> 51 seconds decision time for 10,000 MDVs - needs optimization</li>
+                    </ul>
+                </div>
+
+                <div class="alert alert-warning">
+                    <strong>⚠️ Limitations & Trade-offs:</strong>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                        <li><strong>16MB Cap:</strong> Forces external storage for large MDVs, reintroducing latency</li>
+                        <li><strong>Streaming Workloads:</strong> Requires normative writer requirements (sorted data)</li>
+                        <li><strong>Memory Pressure:</strong> Flat structure uses 17MB for 50,000 files (exceeds safe zone)</li>
+                    </ul>
                 </div>
 
                 <h3>All Benchmark Suites</h3>
