@@ -1,0 +1,38 @@
+[
+  {
+    "scenario": "Scenario A: Fragmented Stream",
+    "total_mdvs": 1000,
+    "total_mdv_size_mb": 0.01049041748046875,
+    "inlined_count": 1000,
+    "inlined_size_mb": 0.01049041748046875,
+    "spilled_count": 0,
+    "spilled_size_mb": 0.0,
+    "planning_time_ms": 49.287899979390204,
+    "metadata_reads": 1,
+    "policy_decision_time_ms": 520.3229000326246
+  },
+  {
+    "scenario": "Scenario B: Partition Drop",
+    "total_mdvs": 100,
+    "total_mdv_size_mb": 0.000885009765625,
+    "inlined_count": 100,
+    "inlined_size_mb": 0.000885009765625,
+    "spilled_count": 0,
+    "spilled_size_mb": 0.0,
+    "planning_time_ms": 49.84550003428012,
+    "metadata_reads": 1,
+    "policy_decision_time_ms": 16.48450002539903
+  },
+  {
+    "scenario": "Scenario C: Long-Tail Accumulation",
+    "total_mdvs": 10000,
+    "total_mdv_size_mb": 9.8114013671875,
+    "inlined_count": 10000,
+    "inlined_size_mb": 9.8114013671875,
+    "spilled_count": 0,
+    "spilled_size_mb": 0.0,
+    "planning_time_ms": 200.94110001809895,
+    "metadata_reads": 1,
+    "policy_decision_time_ms": 51108.83629997261
+  }
+]

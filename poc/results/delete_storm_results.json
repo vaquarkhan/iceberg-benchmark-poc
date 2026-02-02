@@ -1,0 +1,10 @@
+{
+  "num_files": 1000,
+  "mdv_size_bytes": 24,
+  "inline_planning_time_ms": 42.84179990645498,
+  "external_planning_time_ms": 54990.160900051706,
+  "inline_metadata_reads": 1,
+  "external_metadata_reads": 1001,
+  "s3_ttfb_avg_ms": 53.94423870091904,
+  "speedup_factor": 1283.5632727878533
+}

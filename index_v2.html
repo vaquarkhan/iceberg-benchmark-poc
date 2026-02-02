@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -112,58 +112,44 @@
 </head>
 <body>
     <header>
-        <h1>ðŸ§Š Apache Iceberg V4 MDV Benchmark Suite</h1>
+        <h1>🧊 Apache Iceberg V4 MDV Benchmark Suite</h1>
         <p>Complete Validation of Metadata Management Policy</p>
         <div class="meta">
-            <span>ðŸ“… February 2026</span>
-            <span>ðŸ‘¤ Viquar Khan</span>
-            <span>ðŸ“§ vaquar.khan@gmail.com</span>
-            <span>ðŸ”— <a href="https://www.linkedin.com/in/vaquar-khan-b695577/" style="color: white;">LinkedIn</a></span>
-            <span>ðŸ§ª 7 Benchmark Suites</span>
+            <span>📅 February 2026</span>
+            <span>👤 Viquar Khan</span>
+            <span>📧 vaquar.khan@gmail.com</span>
+            <span>🔗 <a href="https://www.linkedin.com/in/vaquar-khan-b695577/" style="color: white;">LinkedIn</a></span>
+            <span>🧪 4 Benchmark Suites</span>
         </div>
     </header>
 
     <div class="container">
         <!-- Tab Navigation -->
         <div class="tabs">
-            <button class="tab active" onclick="showTab('tab0')">
-                ðŸ“ Writer Organization
-            </button>
-            <button class="tab" onclick="showTab('tab1')">
-                ðŸŽ¯ MDV Threshold Validation
+            <button class="tab active" onclick="showTab('tab1')">
+                📊 Writer Organization Benchmarks
             </button>
             <button class="tab" onclick="showTab('tab2')">
-                ðŸ”¬ Density-Adaptive Policy
+                🎯 MDV Threshold Validation
             </button>
             <button class="tab" onclick="showTab('tab3')">
-                ðŸ“ˆ Comprehensive Analysis
+                🔬 Density-Adaptive Policy
             </button>
             <button class="tab" onclick="showTab('tab4')">
-                ðŸ”€ DV Resolution Strategies
+                📈 Comprehensive Analysis
             </button>
             <button class="tab" onclick="showTab('tab5')">
-                âš¡ Single File Commits
-            </button>
-            <button class="tab" onclick="showTab('tab6')">
-                ðŸŒ³ Adaptive Metadata Tree
+                🔀 DV Resolution Strategies
             </button>
         </div>
 
-        <!-- Tab 0: Writer Organization (Original Benchmarks) -->
-        <div id="tab0" class="tab-content active">
+        <!-- Tab 1: Writer Organization (Original Benchmarks) -->
+        <div id="tab1" class="tab-content active">
             <section class="experiment">
-                <h2>ðŸ“ Writer Organization Benchmarks</h2>
+                <h2>📊 Writer Organization Benchmarks</h2>
                 <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
                     Proving that V4's implicit Parquet statistics require sorted data layout for effective pruning.
                 </p>
-
-                <div class="alert alert-info" style="font-size: 1.1rem;">
-                    <strong>ðŸ“„ Full Detailed Report Available:</strong> This tab contains a summary. For the complete report with 
-                    detailed methodology, visualizations, SVG diagrams, and all 4 experiments, please view the 
-                    <a href="index_original_backup.html" target="_blank" style="font-weight: bold; text-decoration: underline;">
-                        Full Writer Organization Report â†’
-                    </a>
-                </div>
 
                 <div class="alert alert-danger">
                     <strong>Critical Finding:</strong> Without sorted data layout, V4's implicit Parquet statistics provide 
@@ -203,26 +189,6 @@
                     </div>
                 </div>
 
-                <h3>ðŸ“Š Visualizations</h3>
-                <div class="charts-grid">
-                    <div class="chart-container">
-                        <h4>Row Group Partition Range Span</h4>
-                        <img src="images/row_group_ranges.png" alt="Row Group Ranges" style="max-width: 100%; height: auto;">
-                    </div>
-                    <div class="chart-container">
-                        <h4>Skip Rate Comparison</h4>
-                        <img src="images/skip_rates.png" alt="Skip Rates" style="max-width: 100%; height: auto;">
-                    </div>
-                    <div class="chart-container">
-                        <h4>Bytes Read During Planning</h4>
-                        <img src="images/bytes_read.png" alt="Bytes Read" style="max-width: 100%; height: auto;">
-                    </div>
-                    <div class="chart-container">
-                        <h4>Write Time Overhead</h4>
-                        <img src="images/write_overhead.png" alt="Write Overhead" style="max-width: 100%; height: auto;">
-                    </div>
-                </div>
-
                 <h3>Key Experiments</h3>
                 
                 <table>
@@ -234,25 +200,25 @@
                             <td><strong>A: Pure Parquet Simulation</strong></td>
                             <td>100K entries, measure skip rates</td>
                             <td class="highlight-bad">0% skip rate unsorted vs 99% sorted</td>
-                            <td><span class="badge badge-success">âœ… PASSED</span></td>
+                            <td><span class="badge badge-success">✅ PASSED</span></td>
                         </tr>
                         <tr>
                             <td><strong>B: V3 Architecture Analysis</strong></td>
                             <td>Compare explicit vs implicit stats</td>
                             <td class="highlight-good">V3 works regardless of order</td>
-                            <td><span class="badge badge-success">âœ… PASSED</span></td>
+                            <td><span class="badge badge-success">✅ PASSED</span></td>
                         </tr>
                         <tr>
                             <td><strong>C: V4 Root Manifest</strong></td>
                             <td>Simulate exact V4 schema</td>
                             <td class="highlight-bad">Every Row Group spans full domain</td>
-                            <td><span class="badge badge-success">âœ… PASSED</span></td>
+                            <td><span class="badge badge-success">✅ PASSED</span></td>
                         </tr>
                         <tr>
                             <td><strong>D: Production Scale</strong></td>
                             <td>Extrapolate to real workloads</td>
                             <td class="highlight-bad">99.2x I/O amplification</td>
-                            <td><span class="badge badge-success">âœ… PASSED</span></td>
+                            <td><span class="badge badge-success">✅ PASSED</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -263,38 +229,16 @@
                     query planning regression.
                 </div>
 
-                <h3>ðŸ“ˆ What's in the Full Report</h3>
-                <ul style="margin-left: 1.5rem; line-height: 1.8;">
-                    <li><strong>Executive Summary</strong> - Complete problem statement and findings</li>
-                    <li><strong>Benchmark Methodology</strong> - Detailed data generation and measurement process</li>
-                    <li><strong>Cloud-Native Catalog Impact</strong> - Polaris, Unity Catalog, AWS Glue, Nessie</li>
-                    <li><strong>Business Impact Analysis</strong> - Silent degradation, streaming analytics vulnerability</li>
-                    <li><strong>Experiment A</strong> - Pure Parquet simulation with 100K entries</li>
-                    <li><strong>Experiment B</strong> - V3 vs V4 architecture comparison with SVG diagrams</li>
-                    <li><strong>Experiment C</strong> - V4 Root Manifest simulation</li>
-                    <li><strong>Experiment D</strong> - Spark production impact extrapolation</li>
-                    <li><strong>Solution Evolution</strong> - Proposed fixes and alternatives</li>
-                    <li><strong>Reproducibility</strong> - Complete instructions to run benchmarks</li>
-                </ul>
-                
-                <div class="alert alert-success" style="margin-top: 2rem;">
-                    <strong>External Validation:</strong> Independent design review confirmed <strong>30x degradation</strong> 
-                    in query planning performance for unsorted streaming workloadsâ€”consistent with our 99.2x bytes reduction finding.
-                </div>
-
-                <div class="alert alert-info" style="margin-top: 1.5rem; font-size: 1.1rem;">
-                    <strong>ðŸ‘‰ View Full Report:</strong> 
-                    <a href="index_original_backup.html" target="_blank" style="font-weight: bold; text-decoration: underline;">
-                        Click here for the complete Writer Organization report with all details, diagrams, and experiments â†’
-                    </a>
-                </div>
+                <h3>📈 Detailed Results</h3>
+                <p>For complete methodology, visualizations, and reproducibility instructions, see the 
+                <a href="index.html" target="_blank">full Writer Organization report</a>.</p>
             </section>
         </div>
 
-        <!-- Tab 1: MDV Threshold Validation -->
-        <div id="tab1" class="tab-content">
+        <!-- Tab 2: MDV Threshold Validation -->
+        <div id="tab2" class="tab-content">
             <section class="experiment">
-                <h2>ðŸŽ¯ MDV Threshold Validation</h2>
+                <h2>🎯 MDV Threshold Validation</h2>
                 <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
                     Validating the physical inflection points (4KB and 10MB) for MDV inlining policy.
                 </p>
@@ -360,7 +304,7 @@
 
                 <div class="alert alert-info">
                     <strong>Why 4KB?</strong> S3 TTFB (~55ms) dominates for small files. Fetching 1,000 external MDV files 
-                    requires 1,000 Ã— 55ms = 55 seconds of TTFB overhead alone. Inlining eliminates this entirely.
+                    requires 1,000 × 55ms = 55 seconds of TTFB overhead alone. Inlining eliminates this entirely.
                 </div>
 
                 <h3>Test 2: GC Performance Cliff (10MB Threshold)</h3>
@@ -374,84 +318,84 @@
                             <td>1.17</td>
                             <td>0.00</td>
                             <td><span class="badge badge-success">NO</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success">✅ NO</span></td>
                         </tr>
                         <tr>
                             <td>2.0</td>
                             <td>2.01</td>
                             <td>0.00</td>
                             <td><span class="badge badge-success">NO</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success">✅ NO</span></td>
                         </tr>
                         <tr>
                             <td>4.0</td>
                             <td>4.01</td>
                             <td>0.00</td>
                             <td><span class="badge badge-success">NO</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success">✅ NO</span></td>
                         </tr>
                         <tr>
                             <td>6.0</td>
                             <td>6.01</td>
                             <td>0.00</td>
                             <td><span class="badge badge-success">NO</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success">✅ NO</span></td>
                         </tr>
                         <tr>
                             <td>8.0</td>
                             <td>9.56</td>
                             <td>0.00</td>
                             <td><span class="badge badge-success">NO</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success">✅ NO</span></td>
                         </tr>
                         <tr>
                             <td>10.0</td>
                             <td>8.38</td>
                             <td>0.00</td>
                             <td><span class="badge badge-danger">YES</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success">✅ NO</span></td>
                         </tr>
                         <tr>
                             <td>12.0</td>
                             <td>13.56</td>
                             <td>0.00</td>
                             <td><span class="badge badge-danger">YES</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success">✅ NO</span></td>
                         </tr>
                         <tr>
                             <td>15.0</td>
                             <td>13.45</td>
                             <td>0.00</td>
                             <td><span class="badge badge-danger">YES</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success">✅ NO</span></td>
                         </tr>
                         <tr>
                             <td>20.0</td>
                             <td>21.56</td>
                             <td>0.00</td>
                             <td><span class="badge badge-danger">YES</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success">✅ NO</span></td>
                         </tr>
                         <tr>
                             <td>30.0</td>
                             <td>28.45</td>
                             <td>0.00</td>
                             <td><span class="badge badge-danger">YES</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success">✅ NO</span></td>
                         </tr>
                         <tr>
                             <td>40.0</td>
                             <td>41.56</td>
                             <td>0.00</td>
                             <td><span class="badge badge-danger">YES</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success">✅ NO</span></td>
                         </tr>
                         <tr>
                             <td>50.0</td>
                             <td>48.45</td>
                             <td>0.00</td>
                             <td><span class="badge badge-danger">YES</span></td>
-                            <td><span class="badge badge-success">âœ… NO</span></td>
+                            <td><span class="badge badge-success">✅ NO</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -462,7 +406,7 @@
                     and Stop-The-World pauses.
                 </div>
 
-                <h3>ðŸ“Š Conclusion</h3>
+                <h3>📊 Conclusion</h3>
                 <div class="alert alert-success">
                     <strong>Validated:</strong> Both thresholds are physical inflection points:
                     <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
@@ -474,10 +418,10 @@
             </section>
         </div>
 
-        <!-- Tab 2: Density-Adaptive Policy -->
-        <div id="tab2" class="tab-content">
+        <!-- Tab 3: Density-Adaptive Policy -->
+        <div id="tab3" class="tab-content">
             <section class="experiment">
-                <h2>ðŸ”¬ Density-Adaptive Policy Validation</h2>
+                <h2>🔬 Density-Adaptive Policy Validation</h2>
                 <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
                     Testing the complete three-rule MDV spill-over strategy with Roaring Bitmap containers.
                 </p>
@@ -652,21 +596,21 @@
                     accumulation (Scenario C) with 100% inline rate and single-digit to sub-second planning times.
                 </div>
 
-                <h3>ðŸ“Š Policy Validation</h3>
+                <h3>📊 Policy Validation</h3>
                 <div class="summary-grid">
                     <div class="card">
                         <h3>Byte Floor</h3>
-                        <div class="value success">âœ…</div>
+                        <div class="value success">✅</div>
                         <div class="subtitle">Protects against TTFB</div>
                     </div>
                     <div class="card">
                         <h3>Global Cap</h3>
-                        <div class="value success">âœ…</div>
+                        <div class="value success">✅</div>
                         <div class="subtitle">Prevents OOM</div>
                     </div>
                     <div class="card">
                         <h3>Container Heuristic</h3>
-                        <div class="value success">âœ…</div>
+                        <div class="value success">✅</div>
                         <div class="subtitle">Optimizes compression</div>
                     </div>
                     <div class="card">
@@ -682,7 +626,7 @@
                     all workload patterns effectively.
                 </div>
 
-                <h3>ðŸ”§ Implementation Status</h3>
+                <h3>🔧 Implementation Status</h3>
                 <div class="alert alert-warning">
                     <strong>Note:</strong> This benchmark uses simulated Roaring Bitmaps. For production implementation, 
                     install <code>pyroaring</code> library for actual Roaring Bitmap container behavior.
@@ -691,10 +635,10 @@
             </section>
         </div>
 
-        <!-- Tab 3: Comprehensive Analysis -->
-        <div id="tab3" class="tab-content">
+        <!-- Tab 4: Comprehensive Analysis -->
+        <div id="tab4" class="tab-content">
             <section class="experiment">
-                <h2>ðŸ“ˆ Comprehensive Analysis & Recommendations</h2>
+                <h2>📈 Comprehensive Analysis & Recommendations</h2>
                 <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
                     Cross-cutting insights from all benchmark suites and actionable recommendations for Iceberg V4.
                 </p>
@@ -705,7 +649,7 @@
                     dictate optimal thresholds, not arbitrary choices.
                 </div>
 
-                <h3>ðŸŽ¯ Key Findings Summary</h3>
+                <h3>🎯 Key Findings Summary</h3>
                 <table>
                     <thead>
                         <tr><th>Benchmark Suite</th><th>Key Finding</th><th>Impact</th><th>Status</th></tr>
@@ -715,30 +659,30 @@
                             <td><strong>Writer Organization</strong></td>
                             <td>Unsorted data causes 0% skip rate</td>
                             <td class="highlight-bad">99.2x I/O amplification</td>
-                            <td><span class="badge badge-success">âœ… VALIDATED</span></td>
+                            <td><span class="badge badge-success">✅ VALIDATED</span></td>
                         </tr>
                         <tr>
                             <td><strong>Delete Storm (4KB)</strong></td>
                             <td>S3 TTFB dominates small files</td>
                             <td class="highlight-good">2,370x speedup inline</td>
-                            <td><span class="badge badge-success">âœ… VALIDATED</span></td>
+                            <td><span class="badge badge-success">✅ VALIDATED</span></td>
                         </tr>
                         <tr>
                             <td><strong>GC Cliff (10MB)</strong></td>
                             <td>Humongous objects trigger at 10MB</td>
                             <td class="highlight-warning">GC pressure above threshold</td>
-                            <td><span class="badge badge-success">âœ… VALIDATED</span></td>
+                            <td><span class="badge badge-success">✅ VALIDATED</span></td>
                         </tr>
                         <tr>
                             <td><strong>Density-Adaptive</strong></td>
                             <td>3-rule policy handles all workloads</td>
                             <td class="highlight-good">100% inline rate achieved</td>
-                            <td><span class="badge badge-success">âœ… VALIDATED</span></td>
+                            <td><span class="badge badge-success">✅ VALIDATED</span></td>
                         </tr>
                     </tbody>
                 </table>
 
-                <h3>ðŸ“Š Performance Metrics Comparison</h3>
+                <h3>📊 Performance Metrics Comparison</h3>
                 <div class="summary-grid">
                     <div class="card">
                         <h3>Max Speedup</h3>
@@ -762,7 +706,7 @@
                     </div>
                 </div>
 
-                <h3>ðŸ”¬ Physical Constraints Validated</h3>
+                <h3>🔬 Physical Constraints Validated</h3>
                 <table>
                     <thead>
                         <tr><th>Constraint</th><th>Source</th><th>Threshold</th><th>Validation Method</th></tr>
@@ -795,7 +739,7 @@
                     </tbody>
                 </table>
 
-                <h3>ðŸ’¡ Recommendations for Iceberg V4</h3>
+                <h3>💡 Recommendations for Iceberg V4</h3>
                 
                 <div class="alert alert-info">
                     <strong>Recommendation 1: Adopt Density-Adaptive MDV Policy</strong>
@@ -838,7 +782,7 @@
                     </ul>
                 </div>
 
-                <h3>ðŸš€ Next Steps</h3>
+                <h3>🚀 Next Steps</h3>
                 <table>
                     <thead>
                         <tr><th>Priority</th><th>Action Item</th><th>Owner</th><th>Timeline</th></tr>
@@ -877,7 +821,7 @@
                     </tbody>
                 </table>
 
-                <h3>ðŸ“š References & Resources</h3>
+                <h3>📚 References & Resources</h3>
                 <ul style="margin-left: 1.5rem;">
                     <li><strong>Roaring Bitmaps:</strong> <a href="https://roaringbitmap.org/" target="_blank">https://roaringbitmap.org/</a></li>
                     <li><strong>G1GC Humongous Objects:</strong> <a href="https://docs.oracle.com/en/java/javase/11/gctuning/garbage-first-garbage-collector.html" target="_blank">Oracle G1GC Documentation</a></li>
@@ -895,10 +839,10 @@
             </section>
         </div>
 
-        <!-- Tab 4: DV Resolution Strategies -->
-        <div id="tab4" class="tab-content">
+        <!-- Tab 5: DV Resolution Strategies -->
+        <div id="tab5" class="tab-content">
             <section class="experiment">
-                <h2>ðŸ”€ DV Resolution Strategies</h2>
+                <h2>🔀 DV Resolution Strategies</h2>
                 <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
                     Benchmarking V4 architectural choices for DV-to-data-file resolution based on Apache Iceberg 
                     community discussion (Anton Okolnychyi, Anoop Johnson, Steven Wu).
@@ -1104,27 +1048,27 @@
                     write-heavy workloads. The read benefits don't justify this cost.
                 </div>
 
-                <h3>ðŸ“Š Architectural Recommendations</h3>
+                <h3>📊 Architectural Recommendations</h3>
                 
                 <div class="summary-grid">
                     <div class="card">
                         <h3>Hash Join</h3>
-                        <div class="value">âš ï¸</div>
+                        <div class="value">⚠️</div>
                         <div class="subtitle">5-10% overhead validated</div>
                     </div>
                     <div class="card">
                         <h3>Positional Join</h3>
-                        <div class="value success">âœ…</div>
+                        <div class="value success">✅</div>
                         <div class="subtitle">1.3x faster, 87% less memory</div>
                     </div>
                     <div class="card">
                         <h3>Folded DVs</h3>
-                        <div class="value success">âœ…</div>
+                        <div class="value success">✅</div>
                         <div class="subtitle">50% I/O reduction</div>
                     </div>
                     <div class="card">
                         <h3>Order-Preserving</h3>
-                        <div class="value danger">âŒ</div>
+                        <div class="value danger">❌</div>
                         <div class="subtitle">22,000% write overhead</div>
                     </div>
                 </div>
@@ -1169,7 +1113,7 @@
                     </ul>
                 </div>
 
-                <h3>ðŸŽ¯ Community Discussion Impact</h3>
+                <h3>🎯 Community Discussion Impact</h3>
                 <table>
                     <thead>
                         <tr><th>Proposal</th><th>Author</th><th>Benchmark Result</th><th>Recommendation</th></tr>
@@ -1185,19 +1129,19 @@
                             <td>Positional join</td>
                             <td>Anoop Johnson</td>
                             <td class="highlight-good">1.3x faster, 87% less memory</td>
-                            <td><span class="badge badge-success">âœ… ADOPT</span></td>
+                            <td><span class="badge badge-success">✅ ADOPT</span></td>
                         </tr>
                         <tr>
                             <td>Folded DVs (column-split)</td>
                             <td>Steven Wu</td>
                             <td class="highlight-good">50% I/O reduction</td>
-                            <td><span class="badge badge-success">âœ… ADOPT</span></td>
+                            <td><span class="badge badge-success">✅ ADOPT</span></td>
                         </tr>
                         <tr>
                             <td>Order-preserving manifests</td>
                             <td>Anoop Johnson</td>
                             <td class="highlight-bad">22,000% write overhead</td>
-                            <td><span class="badge badge-danger">âŒ REJECT</span></td>
+                            <td><span class="badge badge-danger">❌ REJECT</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -1215,436 +1159,9 @@
             </section>
         </div>
 
-        <!-- Tab 5: Single File Commits Performance -->
-        <div id="tab5" class="tab-content">
-            <section class="experiment">
-                <h2>âš¡ Single File Commits Performance</h2>
-                <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
-                    Real measurements of commit latency and metadata overhead for streaming workloads.
-                    <strong>100% Real Data - No Simulations</strong>
-                </p>
-
-                <div class="alert alert-success">
-                    <strong>Key Finding:</strong> Single file commits are <strong>fast enough for streaming</strong> 
-                    (4-50ms), with throughput scaling from 234 to 20,367 files/sec as batch size increases.
-                </div>
-
-                <h3>Scenario A: Commit Latency vs Batch Size</h3>
-                <p><strong>Question:</strong> How does commit performance scale with batch size?</p>
-                
-                <table>
-                    <thead>
-                        <tr><th>Batch Size</th><th>Commit Time</th><th>Metadata Size</th><th>Throughput</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1 file</td>
-                            <td>4.27 ms</td>
-                            <td>0.25 KB</td>
-                            <td class="highlight-good">234 files/sec</td>
-                        </tr>
-                        <tr>
-                            <td>10 files</td>
-                            <td>4.44 ms</td>
-                            <td>2.08 KB</td>
-                            <td class="highlight-good">2,250 files/sec</td>
-                        </tr>
-                        <tr>
-                            <td>50 files</td>
-                            <td>5.06 ms</td>
-                            <td>10.20 KB</td>
-                            <td class="highlight-good">9,890 files/sec</td>
-                        </tr>
-                        <tr>
-                            <td>100 files</td>
-                            <td>11.40 ms</td>
-                            <td>20.36 KB</td>
-                            <td class="highlight-good">8,772 files/sec</td>
-                        </tr>
-                        <tr>
-                            <td>500 files</td>
-                            <td>41.40 ms</td>
-                            <td>101.61 KB</td>
-                            <td class="highlight-good">12,076 files/sec</td>
-                        </tr>
-                        <tr>
-                            <td>1000 files</td>
-                            <td>49.10 ms</td>
-                            <td>203.17 KB</td>
-                            <td class="highlight-good">20,367 files/sec</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="alert alert-info">
-                    <strong>Analysis:</strong> Commit latency scales sub-linearly with batch size. Single file commits 
-                    (4.27ms) are viable for real-time streaming, while larger batches (1000 files in 49ms) provide 
-                    excellent throughput for micro-batch processing.
-                </div>
-
-                <h3>Scenario B: Manifest Growth Over Time</h3>
-                <p><strong>Question:</strong> How fast does metadata grow with frequent small commits?</p>
-                
-                <div class="summary-grid">
-                    <div class="card">
-                        <h3>100 Commits</h3>
-                        <div class="value">0.024 MB</div>
-                        <div class="subtitle">total metadata</div>
-                    </div>
-                    <div class="card">
-                        <h3>Per File</h3>
-                        <div class="value">0.25 KB</div>
-                        <div class="subtitle">average overhead</div>
-                    </div>
-                    <div class="card">
-                        <h3>Growth Rate</h3>
-                        <div class="value success">Linear</div>
-                        <div class="subtitle">predictable scaling</div>
-                    </div>
-                    <div class="card">
-                        <h3>Compaction Need</h3>
-                        <div class="value">Low</div>
-                        <div class="subtitle">minimal overhead</div>
-                    </div>
-                </div>
-
-                <table>
-                    <thead>
-                        <tr><th>Commits</th><th>Total Files</th><th>Cumulative Size</th><th>Avg per File</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>10</td><td>10</td><td>0.0024 MB</td><td>0.25 KB</td></tr>
-                        <tr><td>20</td><td>20</td><td>0.0049 MB</td><td>0.25 KB</td></tr>
-                        <tr><td>50</td><td>50</td><td>0.0122 MB</td><td>0.25 KB</td></tr>
-                        <tr><td>100</td><td>100</td><td>0.0244 MB</td><td>0.25 KB</td></tr>
-                    </tbody>
-                </table>
-
-                <div class="alert alert-success">
-                    <strong>Finding:</strong> Metadata growth is <strong>linear and predictable</strong>. 100 single-file 
-                    commits produce only 24KB of metadata, demonstrating that frequent small commits don't cause 
-                    metadata explosion.
-                </div>
-
-                <h3>Scenario C: Manifest Compaction Cost</h3>
-                <p><strong>Question:</strong> What's the cost of compacting many small manifests?</p>
-                
-                <table>
-                    <thead>
-                        <tr><th>Metric</th><th>Before Compaction</th><th>After Compaction</th><th>Impact</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Number of Manifests</td>
-                            <td class="highlight-bad">100</td>
-                            <td class="highlight-good">1</td>
-                            <td>99% reduction</td>
-                        </tr>
-                        <tr>
-                            <td>Total Size</td>
-                            <td>0.0193 MB</td>
-                            <td>0.0199 MB</td>
-                            <td>-3.2% (overhead)</td>
-                        </tr>
-                        <tr>
-                            <td>Compaction Time</td>
-                            <td colspan="2">2,611 ms</td>
-                            <td>One-time cost</td>
-                        </tr>
-                        <tr>
-                            <td>I/O Operations</td>
-                            <td class="highlight-bad">100 reads</td>
-                            <td class="highlight-good">1 read</td>
-                            <td>99% reduction</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="alert alert-warning">
-                    <strong>Trade-off:</strong> Compaction takes 2.6 seconds for 100 manifests but reduces I/O operations 
-                    by 99%. The slight size increase (-3.2%) is due to JSON formatting overhead, but the I/O benefit 
-                    far outweighs this cost for read-heavy workloads.
-                </div>
-
-                <h3>ðŸ“Š Recommendations</h3>
-                
-                <div class="alert alert-success">
-                    <strong>Recommendation 1: Single File Commits are Viable</strong>
-                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
-                        <li>4.27ms latency is acceptable for real-time streaming (Kafka, Kinesis, Flink)</li>
-                        <li>234 files/sec throughput sufficient for most streaming workloads</li>
-                        <li>Metadata overhead is minimal (0.25 KB per file)</li>
-                    </ul>
-                </div>
-
-                <div class="alert alert-info">
-                    <strong>Recommendation 2: Micro-Batching Improves Throughput</strong>
-                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
-                        <li>Batches of 10-100 files provide 10-40x throughput improvement</li>
-                        <li>Latency remains under 12ms for 100-file batches</li>
-                        <li>Optimal for Flink/Spark Structured Streaming</li>
-                    </ul>
-                </div>
-
-                <div class="alert alert-warning">
-                    <strong>Recommendation 3: Periodic Compaction Recommended</strong>
-                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
-                        <li>Compact every 100-1000 commits to reduce I/O overhead</li>
-                        <li>2.6 seconds per 100 manifests is acceptable background cost</li>
-                        <li>99% I/O reduction benefits all subsequent queries</li>
-                    </ul>
-                </div>
-
-                <h3>ðŸ”¬ Measurement Methodology</h3>
-                <div class="alert alert-info">
-                    <strong>100% Real Measurements:</strong>
-                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
-                        <li>âœ… Actual file I/O operations (not simulated)</li>
-                        <li>âœ… Real JSON serialization/deserialization</li>
-                        <li>âœ… Measured wall-clock time with <code>time.perf_counter()</code></li>
-                        <li>âœ… Actual memory usage with <code>psutil.Process().memory_info()</code></li>
-                        <li>âœ… Real file sizes with <code>os.path.getsize()</code></li>
-                    </ul>
-                </div>
-            </section>
-        </div>
-
-        <!-- Tab 6: Adaptive Metadata Tree -->
-        <div id="tab6" class="tab-content">
-            <section class="experiment">
-                <h2>ðŸŒ³ Adaptive Metadata Tree</h2>
-                <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
-                    Real measurements of different manifest tree structures and their query performance.
-                    <strong>100% Real Data - No Simulations</strong>
-                </p>
-
-                <div class="alert alert-success">
-                    <strong>Key Finding:</strong> Flat trees are fastest for small-medium tables (<10K files), 
-                    while 2-level trees with 2000 files/manifest are optimal for large tables (10K-50K files). 
-                    3-level trees are <strong>too slow</strong> due to excessive manifest reads.
-                </div>
-
-                <h3>Scenario A: Tree Depth vs Query Performance</h3>
-                <p><strong>Question:</strong> How does tree depth affect query planning time?</p>
-                
-                <h4>Small Table (1,000 files)</h4>
-                <table>
-                    <thead>
-                        <tr><th>Tree Structure</th><th>Query Time</th><th>Manifests Read</th><th>Winner</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Flat (1-level)</td>
-                            <td class="highlight-good">48.46 ms</td>
-                            <td>1</td>
-                            <td><span class="badge badge-success">âœ… BEST</span></td>
-                        </tr>
-                        <tr>
-                            <td>2-level</td>
-                            <td>65.48 ms</td>
-                            <td>2</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>3-level</td>
-                            <td class="highlight-bad">376.64 ms</td>
-                            <td>12</td>
-                            <td><span class="badge badge-danger">âŒ WORST</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h4>Medium Table (10,000 files)</h4>
-                <table>
-                    <thead>
-                        <tr><th>Tree Structure</th><th>Query Time</th><th>Manifests Read</th><th>Winner</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Flat (1-level)</td>
-                            <td class="highlight-good">98.86 ms</td>
-                            <td>1</td>
-                            <td><span class="badge badge-success">âœ… BEST</span></td>
-                        </tr>
-                        <tr>
-                            <td>2-level</td>
-                            <td>599.85 ms</td>
-                            <td>11</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>3-level</td>
-                            <td class="highlight-bad">3,280.73 ms</td>
-                            <td>111</td>
-                            <td><span class="badge badge-danger">âŒ WORST</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h4>Large Table (50,000 files)</h4>
-                <table>
-                    <thead>
-                        <tr><th>Tree Structure</th><th>Query Time</th><th>Manifests Read</th><th>Winner</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Flat (1-level)</td>
-                            <td class="highlight-good">355.86 ms</td>
-                            <td>1</td>
-                            <td><span class="badge badge-success">âœ… BEST</span></td>
-                        </tr>
-                        <tr>
-                            <td>2-level</td>
-                            <td>2,203.12 ms</td>
-                            <td>51</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>3-level</td>
-                            <td class="highlight-bad">16,658.78 ms</td>
-                            <td>551</td>
-                            <td><span class="badge badge-danger">âŒ WORST</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="alert alert-warning">
-                    <strong>Critical Finding:</strong> Flat trees are consistently fastest across all table sizes! 
-                    The overhead of reading multiple manifest files outweighs any pruning benefits. Even for 50K files, 
-                    flat structure (356ms) beats 2-level (2,203ms) by <strong>6.2x</strong>.
-                </div>
-
-                <h3>Scenario B: Optimal Tree Configuration</h3>
-                <p><strong>Question:</strong> What's the optimal manifest size for 2-level trees?</p>
-                
-                <table>
-                    <thead>
-                        <tr><th>Configuration</th><th>Query Time</th><th>Manifests Read</th><th>Speedup vs Flat</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Flat</td>
-                            <td class="highlight-good">118.47 ms</td>
-                            <td>1</td>
-                            <td>1.0x (baseline)</td>
-                        </tr>
-                        <tr>
-                            <td>2-level (500/manifest)</td>
-                            <td class="highlight-bad">808.88 ms</td>
-                            <td>21</td>
-                            <td class="highlight-bad">0.15x (6.8x slower)</td>
-                        </tr>
-                        <tr>
-                            <td>2-level (1000/manifest)</td>
-                            <td>707.53 ms</td>
-                            <td>11</td>
-                            <td class="highlight-bad">0.17x (6.0x slower)</td>
-                        </tr>
-                        <tr>
-                            <td>2-level (2000/manifest)</td>
-                            <td>262.59 ms</td>
-                            <td>6</td>
-                            <td class="highlight-warning">0.45x (2.2x slower)</td>
-                        </tr>
-                        <tr>
-                            <td>3-level (100x10)</td>
-                            <td class="highlight-bad">3,249.11 ms</td>
-                            <td>111</td>
-                            <td class="highlight-bad">0.04x (27.4x slower)</td>
-                        </tr>
-                        <tr>
-                            <td>3-level (200x5)</td>
-                            <td class="highlight-bad">1,845.55 ms</td>
-                            <td>61</td>
-                            <td class="highlight-bad">0.06x (15.6x slower)</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="alert alert-danger">
-                    <strong>Shocking Result:</strong> ALL hierarchical structures are slower than flat! Even the "best" 
-                    2-level configuration (2000 files/manifest) is still <strong>2.2x slower</strong> than flat. 
-                    The I/O cost of reading multiple manifests dominates any pruning benefit.
-                </div>
-
-                <h3>ðŸ“Š Analysis: Why Flat Wins</h3>
-                
-                <div style="background: #eff6ff; padding: 1.5rem; border-radius: 0.5rem; margin: 1rem 0;">
-                    <h4 style="color: #1e40af; margin-bottom: 1rem;">The I/O Bottleneck</h4>
-                    <p>Each manifest read incurs:</p>
-                    <ul style="margin-left: 1.5rem;">
-                        <li><strong>File open overhead:</strong> ~5-10ms per file</li>
-                        <li><strong>JSON parsing:</strong> ~2-5ms per manifest</li>
-                        <li><strong>Memory allocation:</strong> Additional GC pressure</li>
-                    </ul>
-                    <p style="margin-top: 1rem;">
-                        For 10K files, 2-level tree reads 11 manifests = 11 Ã— 7ms = <strong>77ms overhead</strong> 
-                        just from I/O, before any actual query planning!
-                    </p>
-                </div>
-
-                <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 0.5rem; margin: 1rem 0;">
-                    <h4 style="color: #166534; margin-bottom: 1rem;">When Would Hierarchical Help?</h4>
-                    <p>Hierarchical trees only win when:</p>
-                    <ul style="margin-left: 1.5rem;">
-                        <li><strong>Partition pruning is effective:</strong> Can skip entire branches</li>
-                        <li><strong>Table is massive:</strong> >100K files where flat parsing is slow</li>
-                        <li><strong>Queries are highly selective:</strong> Touch <10% of data</li>
-                    </ul>
-                    <p style="margin-top: 1rem;">
-                        Our tests show that even at 50K files, flat structure wins because we scan all files anyway. 
-                        Hierarchical only helps if you can skip large portions of the tree.
-                    </p>
-                </div>
-
-                <h3>ðŸ“ˆ Recommendations</h3>
-                
-                <div class="alert alert-success">
-                    <strong>Recommendation 1: Use Flat Structure for Most Tables</strong>
-                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
-                        <li>Flat is fastest for tables up to 50K files (tested range)</li>
-                        <li>Single manifest read minimizes I/O overhead</li>
-                        <li>Simpler implementation and debugging</li>
-                        <li>Only consider hierarchical for >100K files</li>
-                    </ul>
-                </div>
-
-                <div class="alert alert-info">
-                    <strong>Recommendation 2: If Using 2-Level, Maximize Manifest Size</strong>
-                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
-                        <li>Use 2000+ files per manifest to minimize manifest count</li>
-                        <li>Fewer manifests = less I/O overhead</li>
-                        <li>Still 2-6x slower than flat, but better than small manifests</li>
-                    </ul>
-                </div>
-
-                <div class="alert alert-danger">
-                    <strong>Recommendation 3: Avoid 3-Level Trees</strong>
-                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
-                        <li>15-27x slower than flat structure</li>
-                        <li>Excessive manifest reads (100+ for 10K files)</li>
-                        <li>No practical benefit observed in testing</li>
-                        <li>Only consider for tables with >1M files AND highly selective queries</li>
-                    </ul>
-                </div>
-
-                <h3>ðŸ”¬ Measurement Methodology</h3>
-                <div class="alert alert-info">
-                    <strong>100% Real Measurements:</strong>
-                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
-                        <li>âœ… Actual file tree creation (not simulated)</li>
-                        <li>âœ… Real JSON file I/O operations</li>
-                        <li>âœ… Measured query traversal time with <code>time.perf_counter()</code></li>
-                        <li>âœ… Actual manifest reads counted</li>
-                        <li>âœ… Real memory usage tracked with <code>psutil</code></li>
-                    </ul>
-                </div>
-            </section>
-        </div>
-
         <!-- Reproducibility Section (Common to all tabs) -->
         <section class="experiment">
-            <h2>ðŸ”§ Reproducibility</h2>
+            <h2>🔧 Reproducibility</h2>
             <p>All benchmarks are fully reproducible. Clone the repository and run the tests:</p>
             <pre><code># Clone repository
 git clone https://github.com/vaquar/iceberg-benchmark-poc.git
@@ -1657,25 +1174,21 @@ pip install -r requirements.txt
 python run_all_benchmarks.py
 
 # Run individual tests
-python test_delete_storm.py          # Tab 1: 4KB threshold
-python test_gc_performance_cliff.py  # Tab 1: 10MB threshold
-python test_density_adaptive_policy.py  # Tab 2: Complete policy
-python test_dv_resolution_strategies.py  # Tab 4: DV resolution
-python test_single_file_commits.py   # Tab 5: Commit performance
-python test_adaptive_metadata_tree.py  # Tab 6: Tree structures
+python test_delete_storm.py          # Tab 2: 4KB threshold
+python test_gc_performance_cliff.py  # Tab 2: 10MB threshold
+python test_density_adaptive_policy.py  # Tab 3: Complete policy
+python test_dv_resolution_strategies.py  # Tab 5: DV resolution
 
 # Quick test (faster)
 python quick_test.py</code></pre>
 
-            <h3>ðŸ“Š Results Location</h3>
+            <h3>📊 Results Location</h3>
             <p>All results are saved to <code>poc/results/</code>:</p>
             <ul style="margin-left: 1.5rem;">
                 <li><code>delete_storm_results.json</code> - 4KB threshold validation</li>
                 <li><code>gc_cliff_results.json</code> - 10MB threshold validation</li>
                 <li><code>density_adaptive_policy_results.json</code> - Complete policy validation</li>
                 <li><code>dv_resolution_strategies_results.json</code> - DV resolution strategies</li>
-                <li><code>single_file_commits_results.json</code> - Commit performance (NEW)</li>
-                <li><code>adaptive_tree_results.json</code> - Tree structure optimization (NEW)</li>
                 <li><code>all_benchmarks_results.json</code> - Comprehensive results</li>
             </ul>
         </section>
@@ -1685,7 +1198,7 @@ python quick_test.py</code></pre>
         <p><strong>Apache Iceberg V4 MDV Benchmark Suite</strong></p>
         <p>Author: Viquar Khan | <a href="mailto:vaquar.khan@gmail.com">vaquar.khan@gmail.com</a></p>
         <p><a href="https://www.linkedin.com/in/vaquar-khan-b695577/">LinkedIn Profile</a></p>
-        <p style="margin-top: 1rem;">Copyright  2026 Vaquar Khan. Licensed under the Apache License 2.0.</p><p style="opacity: 0.7;">
+        <p style="margin-top: 1rem; opacity: 0.7;">
             This benchmark suite is shared with the Apache Iceberg community for specification improvement.
         </p>
     </footer>

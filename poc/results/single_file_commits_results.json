@@ -1,0 +1,106 @@
+{
+  "timestamp": "2026-02-02T02:33:52.295730",
+  "scenario_a": [
+    {
+      "batch_size": 1,
+      "avg_commit_time_ms": 4.274940013419837,
+      "avg_metadata_size_kb": 0.25,
+      "throughput_files_per_sec": 233.92141102818118
+    },
+    {
+      "batch_size": 10,
+      "avg_commit_time_ms": 4.443850019015372,
+      "avg_metadata_size_kb": 2.078125,
+      "throughput_files_per_sec": 2250.3009681266676
+    },
+    {
+      "batch_size": 50,
+      "avg_commit_time_ms": 5.0555399735458195,
+      "avg_metadata_size_kb": 10.203125,
+      "throughput_files_per_sec": 9890.140373063126
+    },
+    {
+      "batch_size": 100,
+      "avg_commit_time_ms": 11.399569979403168,
+      "avg_metadata_size_kb": 20.359375,
+      "throughput_files_per_sec": 8772.26072392913
+    },
+    {
+      "batch_size": 500,
+      "avg_commit_time_ms": 41.403210000135005,
+      "avg_metadata_size_kb": 101.609375,
+      "throughput_files_per_sec": 12076.358330631117
+    },
+    {
+      "batch_size": 1000,
+      "avg_commit_time_ms": 49.09911999711767,
+      "avg_metadata_size_kb": 203.171875,
+      "throughput_files_per_sec": 20366.963808286266
+    }
+  ],
+  "scenario_b": {
+    "total_commits": 100,
+    "files_per_commit": 1,
+    "total_files": 100,
+    "total_size_mb": 0.0244140625,
+    "growth_points": [
+      {
+        "commit_number": 10,
+        "total_files": 10,
+        "cumulative_size_mb": 0.00244140625
+      },
+      {
+        "commit_number": 20,
+        "total_files": 20,
+        "cumulative_size_mb": 0.0048828125
+      },
+      {
+        "commit_number": 30,
+        "total_files": 30,
+        "cumulative_size_mb": 0.00732421875
+      },
+      {
+        "commit_number": 40,
+        "total_files": 40,
+        "cumulative_size_mb": 0.009765625
+      },
+      {
+        "commit_number": 50,
+        "total_files": 50,
+        "cumulative_size_mb": 0.01220703125
+      },
+      {
+        "commit_number": 60,
+        "total_files": 60,
+        "cumulative_size_mb": 0.0146484375
+      },
+      {
+        "commit_number": 70,
+        "total_files": 70,
+        "cumulative_size_mb": 0.01708984375
+      },
+      {
+        "commit_number": 80,
+        "total_files": 80,
+        "cumulative_size_mb": 0.01953125
+      },
+      {
+        "commit_number": 90,
+        "total_files": 90,
+        "cumulative_size_mb": 0.02197265625
+      },
+      {
+        "commit_number": 100,
+        "total_files": 100,
+        "cumulative_size_mb": 0.0244140625
+      }
+    ]
+  },
+  "scenario_c": {
+    "num_small_manifests": 100,
+    "total_compact_time_ms": 2610.902199987322,
+    "size_before_mb": 0.01926422119140625,
+    "size_after_mb": 0.0198822021484375,
+    "size_reduction_pct": -3.207920792079208
+  }
+}

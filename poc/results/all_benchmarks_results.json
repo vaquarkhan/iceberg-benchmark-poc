@@ -1,0 +1,433 @@
+{
+  "timestamp": "2026-02-02T02:17:12.088610",
+  "benchmarks": {
+    "delete_storm": {
+      "status": "completed",
+      "result": {
+        "num_files": 1000,
+        "mdv_size_bytes": 24,
+        "inline_planning_time_ms": 42.84179990645498,
+        "external_planning_time_ms": 54990.160900051706,
+        "inline_metadata_reads": 1,
+        "external_metadata_reads": 1001,
+        "s3_ttfb_avg_ms": 53.94423870091904,
+        "speedup_factor": 1283.5632727878533
+      }
+    },
+    "gc_cliff": {
+      "status": "completed",
+      "results": [
+        {
+          "manifest_size_mb": 1.0,
+          "heap_usage_mb": 1.265625,
+          "gc_pause_time_ms": 0.0,
+          "gc_count": 1,
+          "stop_the_world_events": 0,
+          "humongous_allocations": 0,
+          "is_performance_cliff": false
+        },
+        {
+          "manifest_size_mb": 2.0,
+          "heap_usage_mb": 1.94921875,
+          "gc_pause_time_ms": 0.0,
+          "gc_count": 1,
+          "stop_the_world_events": 0,
+          "humongous_allocations": 0,
+          "is_performance_cliff": false
+        },
+        {
+          "manifest_size_mb": 4.0,
+          "heap_usage_mb": 4.01171875,
+          "gc_pause_time_ms": 0.0,
+          "gc_count": 1,
+          "stop_the_world_events": 0,
+          "humongous_allocations": 0,
+          "is_performance_cliff": false
+        },
+        {
+          "manifest_size_mb": 6.0,
+          "heap_usage_mb": 6.00390625,
+          "gc_pause_time_ms": 0.0,
+          "gc_count": 1,
+          "stop_the_world_events": 0,
+          "humongous_allocations": 0,
+          "is_performance_cliff": false
+        },
+        {
+          "manifest_size_mb": 8.0,
+          "heap_usage_mb": 8.00390625,
+          "gc_pause_time_ms": 0.0,
+          "gc_count": 1,
+          "stop_the_world_events": 0,
+          "humongous_allocations": 0,
+          "is_performance_cliff": false
+        },
+        {
+          "manifest_size_mb": 10.0,
+          "heap_usage_mb": 9.9375,
+          "gc_pause_time_ms": 0.0,
+          "gc_count": 1,
+          "stop_the_world_events": 0,
+          "humongous_allocations": 1,
+          "is_performance_cliff": false
+        },
+        {
+          "manifest_size_mb": 12.0,
+          "heap_usage_mb": 13.83984375,
+          "gc_pause_time_ms": 0.0,
+          "gc_count": 1,
+          "stop_the_world_events": 0,
+          "humongous_allocations": 1,
+          "is_performance_cliff": false
+        },
+        {
+          "manifest_size_mb": 15.0,
+          "heap_usage_mb": 13.16796875,
+          "gc_pause_time_ms": 0.0,
+          "gc_count": 1,
+          "stop_the_world_events": 0,
+          "humongous_allocations": 1,
+          "is_performance_cliff": false
+        },
+        {
+          "manifest_size_mb": 20.0,
+          "heap_usage_mb": 21.83984375,
+          "gc_pause_time_ms": 0.0,
+          "gc_count": 1,
+          "stop_the_world_events": 0,
+          "humongous_allocations": 1,
+          "is_performance_cliff": false
+        },
+        {
+          "manifest_size_mb": 30.0,
+          "heap_usage_mb": 28.16796875,
+          "gc_pause_time_ms": 0.0,
+          "gc_count": 1,
+          "stop_the_world_events": 0,
+          "humongous_allocations": 1,
+          "is_performance_cliff": false
+        },
+        {
+          "manifest_size_mb": 40.0,
+          "heap_usage_mb": 41.83984375,
+          "gc_pause_time_ms": 0.0,
+          "gc_count": 1,
+          "stop_the_world_events": 0,
+          "humongous_allocations": 1,
+          "is_performance_cliff": false
+        },
+        {
+          "manifest_size_mb": 50.0,
+          "heap_usage_mb": 48.16796875,
+          "gc_pause_time_ms": 0.0,
+          "gc_count": 1,
+          "stop_the_world_events": 0,
+          "humongous_allocations": 1,
+          "is_performance_cliff": false
+        }
+      ]
+    },
+    "density_adaptive_policy": {
+      "status": "completed",
+      "results": [
+        {
+          "scenario": "Scenario A: Fragmented Stream",
+          "total_mdvs": 1000,
+          "total_mdv_size_mb": 0.01049041748046875,
+          "inlined_count": 1000,
+          "inlined_size_mb": 0.01049041748046875,
+          "spilled_count": 0,
+          "spilled_size_mb": 0.0,
+          "planning_time_ms": 49.287899979390204,
+          "metadata_reads": 1,
+          "policy_decision_time_ms": 520.3229000326246
+        },
+        {
+          "scenario": "Scenario B: Partition Drop",
+          "total_mdvs": 100,
+          "total_mdv_size_mb": 0.000885009765625,
+          "inlined_count": 100,
+          "inlined_size_mb": 0.000885009765625,
+          "spilled_count": 0,
+          "spilled_size_mb": 0.0,
+          "planning_time_ms": 49.84550003428012,
+          "metadata_reads": 1,
+          "policy_decision_time_ms": 16.48450002539903
+        },
+        {
+          "scenario": "Scenario C: Long-Tail Accumulation",
+          "total_mdvs": 10000,
+          "total_mdv_size_mb": 9.8114013671875,
+          "inlined_count": 10000,
+          "inlined_size_mb": 9.8114013671875,
+          "spilled_count": 0,
+          "spilled_size_mb": 0.0,
+          "planning_time_ms": 200.94110001809895,
+          "metadata_reads": 1,
+          "policy_decision_time_ms": 51108.83629997261
+        }
+      ]
+    },
+    "dv_resolution_strategies": {
+      "status": "completed",
+      "results": {
+        "scenario_a": [
+          {
+            "num_files": 1000,
+            "hash_join": {
+              "strategy": "hash_join",
+              "total_time_ms": 0.5089000333100557,
+              "build_time_ms": 0.17560005653649569,
+              "probe_time_ms": 0.3309999592602253,
+              "memory_bytes": 60000,
+              "matched_files": 300,
+              "hash_table_size": 300
+            },
+            "positional_join": {
+              "strategy": "positional_join",
+              "total_time_ms": 0.977999996393919,
+              "build_time_ms": 0,
+              "probe_time_ms": 0.977999996393919,
+              "memory_bytes": 8000,
+              "matched_files": 300,
+              "null_entries": 700
+            },
+            "speedup": 0.5203476842397461,
+            "memory_reduction_pct": 86.66666666666667
+          },
+          {
+            "num_files": 10000,
+            "hash_join": {
+              "strategy": "hash_join",
+              "total_time_ms": 4.620800027623773,
+              "build_time_ms": 1.4726000372320414,
+              "probe_time_ms": 3.145799972116947,
+              "memory_bytes": 597400,
+              "matched_files": 2987,
+              "hash_table_size": 2987
+            },
+            "positional_join": {
+              "strategy": "positional_join",
+              "total_time_ms": 9.33689996600151,
+              "build_time_ms": 0,
+              "probe_time_ms": 9.33689996600151,
+              "memory_bytes": 80000,
+              "matched_files": 2987,
+              "null_entries": 7013
+            },
+            "speedup": 0.4948965978482697,
+            "memory_reduction_pct": 86.60863742885839
+          },
+          {
+            "num_files": 25000,
+            "hash_join": {
+              "strategy": "hash_join",
+              "total_time_ms": 15.890799928456545,
+              "build_time_ms": 3.9917000103741884,
+              "probe_time_ms": 11.895300005562603,
+              "memory_bytes": 1490800,
+              "matched_files": 7454,
+              "hash_table_size": 7454
+            },
+            "positional_join": {
+              "strategy": "positional_join",
+              "total_time_ms": 47.34289995394647,
+              "build_time_ms": 0,
+              "probe_time_ms": 47.34289995394647,
+              "memory_bytes": 200000,
+              "matched_files": 7454,
+              "null_entries": 17546
+            },
+            "speedup": 0.3356532857918413,
+            "memory_reduction_pct": 86.58438422323584
+          },
+          {
+            "num_files": 100000,
+            "hash_join": {
+              "strategy": "hash_join",
+              "total_time_ms": 49.614000017754734,
+              "build_time_ms": 8.042400004342198,
+              "probe_time_ms": 41.56809998676181,
+              "memory_bytes": 6006000,
+              "matched_files": 30030,
+              "hash_table_size": 30030
+            },
+            "positional_join": {
+              "strategy": "positional_join",
+              "total_time_ms": 75.01909998245537,
+              "build_time_ms": 0,
+              "probe_time_ms": 75.01909998245537,
+              "memory_bytes": 800000,
+              "matched_files": 30030,
+              "null_entries": 69970
+            },
+            "speedup": 0.6613515761900356,
+            "memory_reduction_pct": 86.67998667998667
+          }
+        ],
+        "scenario_b": [
+          {
+            "num_files": 10000,
+            "dv_ratio": 0.1,
+            "separate_manifests": {
+              "requests": 2,
+              "time_ms": 106.10249999444932,
+              "data_manifest_size_kb": 1953.125,
+              "dv_manifest_size_kb": 149.70703125
+            },
+            "folded_dvs": {
+              "requests": 1,
+              "time_ms": 73.95270001143217,
+              "manifest_size_kb": 2102.83203125
+            },
+            "io_reduction_pct": 50.0,
+            "time_reduction_pct": 30.30069978058862
+          },
+          {
+            "num_files": 10000,
+            "dv_ratio": 0.3,
+            "separate_manifests": {
+              "requests": 2,
+              "time_ms": 110.40800006594509,
+              "data_manifest_size_kb": 1953.125,
+              "dv_manifest_size_kb": 439.453125
+            },
+            "folded_dvs": {
+              "requests": 1,
+              "time_ms": 81.43970009405166,
+              "manifest_size_kb": 2392.578125
+            },
+            "io_reduction_pct": 50.0,
+            "time_reduction_pct": 26.237500864603184
+          },
+          {
+            "num_files": 10000,
+            "dv_ratio": 0.5,
+            "separate_manifests": {
+              "requests": 2,
+              "time_ms": 109.25620002672076,
+              "data_manifest_size_kb": 1953.125,
+              "dv_manifest_size_kb": 722.607421875
+            },
+            "folded_dvs": {
+              "requests": 1,
+              "time_ms": 134.66580002568662,
+              "manifest_size_kb": 2675.732421875
+            },
+            "io_reduction_pct": 50.0,
+            "time_reduction_pct": -23.256895254229455
+          },
+          {
+            "num_files": 25000,
+            "dv_ratio": 0.3,
+            "separate_manifests": {
+              "requests": 2,
+              "time_ms": 158.41440006624907,
+              "data_manifest_size_kb": 4882.8125,
+              "dv_manifest_size_kb": 1110.9375
+            },
+            "folded_dvs": {
+              "requests": 1,
+              "time_ms": 121.46129994653165,
+              "manifest_size_kb": 5993.75
+            },
+            "io_reduction_pct": 50.0,
+            "time_reduction_pct": 23.3268567152125
+          }
+        ],
+        "scenario_c": [
+          {
+            "num_files": 10000,
+            "num_dv_manifests": 2,
+            "coalesce_time_ms": 9.382100077345967,
+            "resolved_dvs": 5120,
+            "resolution_rate_pct": 51.2
+          },
+          {
+            "num_files": 10000,
+            "num_dv_manifests": 5,
+            "coalesce_time_ms": 5.069699953310192,
+            "resolved_dvs": 8359,
+            "resolution_rate_pct": 83.59
+          },
+          {
+            "num_files": 10000,
+            "num_dv_manifests": 10,
+            "coalesce_time_ms": 6.834800005890429,
+            "resolved_dvs": 9729,
+            "resolution_rate_pct": 97.28999999999999
+          },
+          {
+            "num_files": 25000,
+            "num_dv_manifests": 5,
+            "coalesce_time_ms": 9.775200043804944,
+            "resolved_dvs": 20853,
+            "resolution_rate_pct": 83.41199999999999
+          }
+        ],
+        "scenario_d": [
+          {
+            "num_files": 10000,
+            "dv_ratio": 0.1,
+            "num_dvs": 1013,
+            "unordered_write": {
+              "time_ms": 0.025499961338937283,
+              "manifest_entries": 1013
+            },
+            "ordered_write": {
+              "time_ms": 10.188100044615567,
+              "manifest_entries": 10000,
+              "null_entries": 8987
+            },
+            "overhead_pct": 39853.394082440434
+          },
+          {
+            "num_files": 10000,
+            "dv_ratio": 0.3,
+            "num_dvs": 2963,
+            "unordered_write": {
+              "time_ms": 0.034899916499853134,
+              "manifest_entries": 2963
+            },
+            "ordered_write": {
+              "time_ms": 12.363600078970194,
+              "manifest_entries": 10000,
+              "null_entries": 7037
+            },
+            "overhead_pct": 35325.87295021815
+          },
+          {
+            "num_files": 10000,
+            "dv_ratio": 0.5,
+            "num_dvs": 4899,
+            "unordered_write": {
+              "time_ms": 0.06710004527121782,
+              "manifest_entries": 4899
+            },
+            "ordered_write": {
+              "time_ms": 15.406099963001907,
+              "manifest_entries": 10000,
+              "null_entries": 5101
+            },
+            "overhead_pct": 22859.895035436384
+          },
+          {
+            "num_files": 25000,
+            "dv_ratio": 0.3,
+            "num_dvs": 7469,
+            "unordered_write": {
+              "time_ms": 0.06939994636923075,
+              "manifest_entries": 7469
+            },
+            "ordered_write": {
+              "time_ms": 15.910399961285293,
+              "manifest_entries": 25000,
+              "null_entries": 17531
+            },
+            "overhead_pct": 22825.666075643177
+          }
+        ]
+      }
+    }
+  }
+}

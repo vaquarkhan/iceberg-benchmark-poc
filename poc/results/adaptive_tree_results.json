@@ -1,0 +1,172 @@
+{
+  "timestamp": "2026-02-02T02:34:03.532272",
+  "scenario_a": [
+    {
+      "num_files": 1000,
+      "description": "Small table",
+      "flat": {
+        "tree_depth": 1,
+        "total_manifests": 1,
+        "total_files": 1000,
+        "query_planning_time_ms": 48.45579992979765,
+        "manifests_read": 1,
+        "files_scanned": 1000,
+        "memory_used_mb": 0.26953125
+      },
+      "two_level": {
+        "tree_depth": 2,
+        "total_manifests": 2,
+        "total_files": 1000,
+        "query_planning_time_ms": 65.48380001913756,
+        "manifests_read": 2,
+        "files_scanned": 1000,
+        "memory_used_mb": 0.33984375
+      },
+      "three_level": {
+        "tree_depth": 3,
+        "total_manifests": 12,
+        "total_files": 1000,
+        "query_planning_time_ms": 376.64030003361404,
+        "manifests_read": 12,
+        "files_scanned": 1000,
+        "memory_used_mb": 0.05859375
+      }
+    },
+    {
+      "num_files": 10000,
+      "description": "Medium table",
+      "flat": {
+        "tree_depth": 1,
+        "total_manifests": 1,
+        "total_files": 10000,
+        "query_planning_time_ms": 98.86109991930425,
+        "manifests_read": 1,
+        "files_scanned": 10000,
+        "memory_used_mb": 1.63671875
+      },
+      "two_level": {
+        "tree_depth": 2,
+        "total_manifests": 11,
+        "total_files": 10000,
+        "query_planning_time_ms": 599.8459999682382,
+        "manifests_read": 11,
+        "files_scanned": 10000,
+        "memory_used_mb": 0.078125
+      },
+      "three_level": {
+        "tree_depth": 3,
+        "total_manifests": 111,
+        "total_files": 10000,
+        "query_planning_time_ms": 3280.7279999833554,
+        "manifests_read": 111,
+        "files_scanned": 10000,
+        "memory_used_mb": 0.05859375
+      }
+    },
+    {
+      "num_files": 50000,
+      "description": "Large table",
+      "flat": {
+        "tree_depth": 1,
+        "total_manifests": 1,
+        "total_files": 50000,
+        "query_planning_time_ms": 355.85880000144243,
+        "manifests_read": 1,
+        "files_scanned": 50000,
+        "memory_used_mb": 17.41015625
+      },
+      "two_level": {
+        "tree_depth": 2,
+        "total_manifests": 51,
+        "total_files": 50000,
+        "query_planning_time_ms": 2203.121400089003,
+        "manifests_read": 51,
+        "files_scanned": 50000,
+        "memory_used_mb": 0.24609375
+      },
+      "three_level": {
+        "tree_depth": 3,
+        "total_manifests": 551,
+        "total_files": 50000,
+        "query_planning_time_ms": 16658.778499928303,
+        "manifests_read": 551,
+        "files_scanned": 50000,
+        "memory_used_mb": 0.09765625
+      }
+    }
+  ],
+  "scenario_b": [
+    {
+      "config_name": "Flat",
+      "metrics": {
+        "tree_depth": 1,
+        "total_manifests": 1,
+        "total_files": 10000,
+        "query_planning_time_ms": 118.47019998822361,
+        "manifests_read": 1,
+        "files_scanned": 10000,
+        "memory_used_mb": 0.0
+      }
+    },
+    {
+      "config_name": "2-level (500/manifest)",
+      "metrics": {
+        "tree_depth": 2,
+        "total_manifests": 21,
+        "total_files": 10000,
+        "query_planning_time_ms": 808.8800000259653,
+        "manifests_read": 21,
+        "files_scanned": 10000,
+        "memory_used_mb": 0.29296875
+      }
+    },
+    {
+      "config_name": "2-level (1000/manifest)",
+      "metrics": {
+        "tree_depth": 2,
+        "total_manifests": 11,
+        "total_files": 10000,
+        "query_planning_time_ms": 707.5310000218451,
+        "manifests_read": 11,
+        "files_scanned": 10000,
+        "memory_used_mb": -0.00390625
+      }
+    },
+    {
+      "config_name": "2-level (2000/manifest)",
+      "metrics": {
+        "tree_depth": 2,
+        "total_manifests": 6,
+        "total_files": 10000,
+        "query_planning_time_ms": 262.5851999036968,
+        "manifests_read": 6,
+        "files_scanned": 10000,
+        "memory_used_mb": -0.03515625
+      }
+    },
+    {
+      "config_name": "3-level (100x10)",
+      "metrics": {
+        "tree_depth": 3,
+        "total_manifests": 111,
+        "total_files": 10000,
+        "query_planning_time_ms": 3249.1083999630064,
+        "manifests_read": 111,
+        "files_scanned": 10000,
+        "memory_used_mb": 0.04296875
+      }
+    },
+    {
+      "config_name": "3-level (200x5)",
+      "metrics": {
+        "tree_depth": 3,
+        "total_manifests": 61,
+        "total_files": 10000,
+        "query_planning_time_ms": 1845.5526999896392,
+        "manifests_read": 61,
+        "files_scanned": 10000,
+        "memory_used_mb": 0.1171875
+      }
+    }
+  ]
+}
