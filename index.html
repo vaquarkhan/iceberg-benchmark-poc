@@ -911,6 +911,13 @@
                     </div>
                 </div>
 
+                <div style="margin: 2rem 0;">
+                    <div class="chart-container" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); padding: 2rem; border-radius: 1.5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.12); border: 1px solid #e2e8f0; max-width: 800px; margin: 0 auto;">
+                        <h4 style="text-align: center; margin-bottom: 1.5rem; color: #1e293b; font-size: 1.1rem; font-weight: 700;">📊 Inline vs External Planning Time Comparison</h4>
+                        <canvas id="tab1Chart1" style="max-height: 350px;"></canvas>
+                    </div>
+                </div>
+
                 <table>
                     <thead>
                         <tr><th>Metric</th><th>Inline</th><th>External</th><th>Impact</th></tr>
@@ -1200,6 +1207,14 @@
                 </table>
 
                 <h3>Comparative Results</h3>
+                
+                <div style="margin: 2rem 0;">
+                    <div class="chart-container" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); padding: 2rem; border-radius: 1.5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.12); border: 1px solid #e2e8f0; max-width: 900px; margin: 0 auto;">
+                        <h4 style="text-align: center; margin-bottom: 1.5rem; color: #1e293b; font-size: 1.1rem; font-weight: 700;">📊 Planning Time Across Scenarios</h4>
+                        <canvas id="tab2Chart1" style="max-height: 350px;"></canvas>
+                    </div>
+                </div>
+
                 <table>
                     <thead>
                         <tr><th>Scenario</th><th>MDVs</th><th>Inlined</th><th>Spilled</th><th>Planning Time</th></tr>
@@ -2314,6 +2329,13 @@ python quick_test.py</code></pre>
                 </div>
             </div>
 
+            <div style="margin: 2rem 0;">
+                <div class="chart-container" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); padding: 2rem; border-radius: 1.5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.12); border: 1px solid #e2e8f0; max-width: 800px; margin: 0 auto;">
+                    <h4 style="text-align: center; margin-bottom: 1.5rem; color: #1e293b; font-size: 1.1rem; font-weight: 700;">📊 V3 vs V4 Wide Table Planning Time</h4>
+                    <canvas id="tab7Chart1" style="max-height: 350px;"></canvas>
+                </div>
+            </div>
+
             <h3>Why This Matters</h3>
             <div class="alert alert-info">
                 <strong>Parquet Metadata Bloat:</strong> Wide tables (1000+ columns) have large Parquet footers 
@@ -2415,6 +2437,13 @@ python quick_test.py</code></pre>
                     <h3>Total Time</h3>
                     <div class="value">2.26 sec</div>
                     <div class="subtitle">wall clock</div>
+                </div>
+            </div>
+
+            <div style="margin: 2rem 0;">
+                <div class="chart-container" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); padding: 2rem; border-radius: 1.5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.12); border: 1px solid #e2e8f0; max-width: 800px; margin: 0 auto;">
+                    <h4 style="text-align: center; margin-bottom: 1.5rem; color: #1e293b; font-size: 1.1rem; font-weight: 700;">📊 Concurrent Writers Performance</h4>
+                    <canvas id="tab8Chart1" style="max-height: 350px;"></canvas>
                 </div>
             </div>
 
@@ -2853,6 +2882,205 @@ python quick_test.py</code></pre>
                             }
                         },
                         animation: {
+                            duration: 1500,
+                            easing: 'easeInOutQuart'
+                        }
+                    }
+                });
+            }
+
+            // Tab 1 Chart: Inline vs External Planning Time
+            const tab1Chart1Ctx = document.getElementById('tab1Chart1');
+            if (tab1Chart1Ctx) {
+                new Chart(tab1Chart1Ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Inline MDV', 'External MDV'],
+                        datasets: [{
+                            label: 'Planning Time (ms)',
+                            data: [23.77, 56328],
+                            backgroundColor: ['rgba(16, 185, 129, 0.85)', 'rgba(239, 68, 68, 0.85)'],
+                            borderColor: ['rgb(5, 150, 105)', 'rgb(220, 38, 38)'],
+                            borderWidth: 2,
+                            borderRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                padding: 12,
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.parsed.y.toLocaleString() + ' ms';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                type: 'logarithmic',
+                                title: { display: true, text: 'Planning Time (ms, log scale)', font: { size: 13, weight: 'bold' } },
+                                grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: { font: { size: 12, weight: '600' } }
+                            }
+                        },
+                        animation: { duration: 1500, easing: 'easeInOutQuart' }
+                    }
+                });
+            }
+
+            // Tab 2 Chart: Planning Time Across Scenarios
+            const tab2Chart1Ctx = document.getElementById('tab2Chart1');
+            if (tab2Chart1Ctx) {
+                new Chart(tab2Chart1Ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Fragmented Stream\n(1,000 MDVs)', 'Partition Drop\n(100 MDVs)', 'Long-Tail\n(10,000 MDVs)'],
+                        datasets: [{
+                            label: 'Planning Time (ms)',
+                            data: [65.93, 21.28, 141.10],
+                            backgroundColor: ['rgba(59, 130, 246, 0.85)', 'rgba(16, 185, 129, 0.85)', 'rgba(139, 92, 246, 0.85)'],
+                            borderColor: ['rgb(37, 99, 235)', 'rgb(5, 150, 105)', 'rgb(109, 40, 217)'],
+                            borderWidth: 2,
+                            borderRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                padding: 12,
+                                callbacks: {
+                                    label: function(context) {
+                                        return 'Planning Time: ' + context.parsed.y.toFixed(2) + ' ms';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Planning Time (ms)', font: { size: 13, weight: 'bold' } },
+                                grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: { font: { size: 11, weight: '600' } }
+                            }
+                        },
+                        animation: { duration: 1500, easing: 'easeInOutQuart' }
+                    }
+                });
+            }
+
+            // Tab 7 Chart: V3 vs V4 Wide Table Planning
+            const tab7Chart1Ctx = document.getElementById('tab7Chart1');
+            if (tab7Chart1Ctx) {
+                new Chart(tab7Chart1Ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['V3 (Read Footers)', 'V4 (Root Manifest)'],
+                        datasets: [{
+                            label: 'Planning Time (ms)',
+                            data: [1108, 0.004],
+                            backgroundColor: ['rgba(239, 68, 68, 0.85)', 'rgba(16, 185, 129, 0.85)'],
+                            borderColor: ['rgb(220, 38, 38)', 'rgb(5, 150, 105)'],
+                            borderWidth: 2,
+                            borderRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                padding: 12,
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.parsed.y.toFixed(3) + ' ms';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                type: 'logarithmic',
+                                title: { display: true, text: 'Planning Time (ms, log scale)', font: { size: 13, weight: 'bold' } },
+                                grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: { font: { size: 12, weight: '600' } }
+                            }
+                        },
+                        animation: { duration: 1500, easing: 'easeInOutQuart' }
+                    }
+                });
+            }
+
+            // Tab 8 Chart: Concurrent Writers Performance
+            const tab8Chart1Ctx = document.getElementById('tab8Chart1');
+            if (tab8Chart1Ctx) {
+                new Chart(tab8Chart1Ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Successful (First Try)', 'Retried (After Conflict)', 'Conflicts Resolved'],
+                        datasets: [{
+                            data: [184, 66, 66],
+                            backgroundColor: [
+                                'rgba(16, 185, 129, 0.85)',
+                                'rgba(251, 146, 60, 0.85)',
+                                'rgba(59, 130, 246, 0.85)'
+                            ],
+                            borderColor: [
+                                'rgb(5, 150, 105)',
+                                'rgb(234, 88, 12)',
+                                'rgb(37, 99, 235)'
+                            ],
+                            borderWidth: 3,
+                            hoverOffset: 15
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 15,
+                                    font: { size: 12, weight: '600' },
+                                    usePointStyle: true,
+                                    pointStyle: 'circle'
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                padding: 12,
+                                callbacks: {
+                                    label: function(context) {
+                                        const total = 250;
+                                        const percentage = ((context.parsed / total) * 100).toFixed(1);
+                                        return context.label + ': ' + context.parsed + ' (' + percentage + '%)';
+                                    }
+                                }
+                            }
+                        },
+                        animation: {
+                            animateRotate: true,
+                            animateScale: true,
                             duration: 1500,
                             easing: 'easeInOutQuart'
                         }
