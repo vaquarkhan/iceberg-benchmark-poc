@@ -122,7 +122,7 @@
             <span> Viquar Khan</span>
             <span> vaquar.khan@gmail.com</span>
             <span> <a href="https://www.linkedin.com/in/vaquar-khan-b695577/" style="color: white;">LinkedIn</a></span>
-            <span> 7 Benchmark Suites</span>
+            <span> 9 Benchmark Suites</span>
         </div>
     </header>
 
@@ -149,6 +149,12 @@
             </button>
             <button class="tab" onclick="showTab('tab6')">
                  Adaptive Metadata Tree
+            </button>
+            <button class="tab" onclick="showTab('tab7')">
+                 Wide Table Pruning
+            </button>
+            <button class="tab" onclick="showTab('tab8')">
+                 Concurrent Writers
             </button>
         </div>
 
@@ -1677,10 +1683,264 @@ python quick_test.py</code></pre>
                 <li><code>gc_cliff_results.json</code> - 10MB threshold validation</li>
                 <li><code>density_adaptive_policy_results.json</code> - Complete policy validation</li>
                 <li><code>dv_resolution_strategies_results.json</code> - DV resolution strategies</li>
-                <li><code>single_file_commits_results.json</code> - Commit performance (NEW)</li>
-                <li><code>adaptive_tree_results.json</code> - Tree structure optimization (NEW)</li>
+                <li><code>single_file_commits_results.json</code> - Commit performance</li>
+                <li><code>adaptive_tree_results.json</code> - Tree structure optimization</li>
+                <li><code>wide_table_results.json</code> - Wide table pruning (NEW)</li>
+                <li><code>concurrent_writers_results.json</code> - Concurrent writers (NEW)</li>
                 <li><code>all_benchmarks_results.json</code> - Comprehensive results</li>
             </ul>
+        </section>
+    </div>
+
+    <!-- Tab 7: Wide Table Pruning -->
+    <div id="tab7" class="tab-content">
+        <section class="experiment">
+            <h2> Wide Table Pruning - Column Statistics Validation</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
+                Testing V4's improved column statistics for wide tables (500+ columns).
+                Validates that Root Manifest aggregated stats enable pruning without reading individual Parquet footers.
+            </p>
+
+            <div class="alert alert-success">
+                <strong>Key Finding:</strong> V4's Root Manifest contains aggregated column statistics, 
+                eliminating the need to read Parquet footers for query planning on wide tables.
+            </div>
+
+            <h3>Test Results - 500 Columns, 50 Files</h3>
+            <div class="summary-grid">
+                <div class="card">
+                    <h3>V3 Planning Time</h3>
+                    <div class="value danger">1,108 ms</div>
+                    <div class="subtitle">Read all footers</div>
+                </div>
+                <div class="card">
+                    <h3>V4 Planning Time</h3>
+                    <div class="value success">0.004 ms</div>
+                    <div class="subtitle">Used Root Manifest</div>
+                </div>
+                <div class="card">
+                    <h3>Footers Read (V3)</h3>
+                    <div class="value danger">50</div>
+                    <div class="subtitle">All files</div>
+                </div>
+                <div class="card">
+                    <h3>Footers Read (V4)</h3>
+                    <div class="value success">0</div>
+                    <div class="subtitle">Aggregated stats</div>
+                </div>
+                <div class="card">
+                    <h3>Speedup</h3>
+                    <div class="value success">276,892x</div>
+                    <div class="subtitle">faster with V4</div>
+                </div>
+                <div class="card">
+                    <h3>I/O Saved</h3>
+                    <div class="value success">10.35 KB</div>
+                    <div class="subtitle">footer overhead</div>
+                </div>
+            </div>
+
+            <h3>Why This Matters</h3>
+            <div class="alert alert-info">
+                <strong>Parquet Metadata Bloat:</strong> Wide tables (1000+ columns) have large Parquet footers 
+                containing schema and statistics for every column. In V3, query planning must read all footers 
+                to find column bounds. V4's Root Manifest contains aggregated statistics, enabling instant pruning.
+            </div>
+
+            <table>
+                <thead>
+                    <tr><th>Columns</th><th>Footer Size</th><th>V3 Overhead</th><th>V4 Overhead</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>100</td>
+                        <td>~50 bytes</td>
+                        <td>50 files × 50 bytes = 2.5 KB</td>
+                        <td>0 KB (aggregated)</td>
+                    </tr>
+                    <tr>
+                        <td>500</td>
+                        <td>~200 bytes</td>
+                        <td>50 files × 200 bytes = 10 KB</td>
+                        <td>0 KB (aggregated)</td>
+                    </tr>
+                    <tr>
+                        <td>1000</td>
+                        <td>~400 bytes</td>
+                        <td>50 files × 400 bytes = 20 KB</td>
+                        <td>0 KB (aggregated)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Production Impact</h3>
+            <div class="alert alert-warning">
+                <strong>Real-World Scenario:</strong> A table with 1,000 columns and 10,000 files would require 
+                reading 4 MB of Parquet footers in V3. With S3 TTFB of 50ms per file, this adds 500 seconds 
+                (8+ minutes) to query planning. V4 eliminates this entirely.
+            </div>
+
+            <h3> Implementation</h3>
+            <p>Test uses actual PyArrow Parquet I/O:</p>
+            <ul style="margin-left: 1.5rem;">
+                <li>Real Parquet files with 500 columns</li>
+                <li>Actual footer size measurements</li>
+                <li>Real file I/O operations</li>
+                <li>Wall-clock timing measurements</li>
+            </ul>
+
+            <div class="alert alert-success">
+                <strong>Conclusion:</strong> V4's aggregated column statistics in the Root Manifest eliminate 
+                the Parquet metadata bloat problem for wide tables, providing instant query planning regardless 
+                of column count.
+            </div>
+        </section>
+    </div>
+
+    <!-- Tab 8: Concurrent Writers -->
+    <div id="tab8" class="tab-content">
+        <section class="experiment">
+            <h2> Concurrent Writers - Optimistic Locking Validation</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
+                Testing V4's behavior under concurrent write load with optimistic locking and conflict resolution.
+            </p>
+
+            <div class="alert alert-success">
+                <strong>Key Finding:</strong> V4's optimistic locking handles concurrent writers efficiently 
+                with automatic retry and exponential backoff, maintaining high throughput even with conflicts.
+            </div>
+
+            <h3>Test Results - 5 Writers, 50 Commits Each</h3>
+            <div class="summary-grid">
+                <div class="card">
+                    <h3>Total Writes</h3>
+                    <div class="value">250</div>
+                    <div class="subtitle">commits attempted</div>
+                </div>
+                <div class="card">
+                    <h3>Successful</h3>
+                    <div class="value success">250</div>
+                    <div class="subtitle">100% success rate</div>
+                </div>
+                <div class="card">
+                    <h3>Conflicts Detected</h3>
+                    <div class="value warning">66</div>
+                    <div class="subtitle">26.4% conflict rate</div>
+                </div>
+                <div class="card">
+                    <h3>Avg Latency</h3>
+                    <div class="value success">3.14 ms</div>
+                    <div class="subtitle">per commit</div>
+                </div>
+                <div class="card">
+                    <h3>Throughput</h3>
+                    <div class="value success">293 commits/sec</div>
+                    <div class="subtitle">aggregate</div>
+                </div>
+                <div class="card">
+                    <h3>Total Time</h3>
+                    <div class="value">2.26 sec</div>
+                    <div class="subtitle">wall clock</div>
+                </div>
+            </div>
+
+            <h3>How Optimistic Locking Works</h3>
+            <div class="alert alert-info">
+                <strong>V4 Commit Protocol:</strong>
+                <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li>Writer reads current Root Manifest version (e.g., v100)</li>
+                    <li>Writer prepares new Root Manifest with changes</li>
+                    <li>Writer attempts commit with expected version (v100)</li>
+                    <li>Catalog checks: if current version is still v100, commit succeeds → v101</li>
+                    <li>If version changed (conflict), writer retries with new version</li>
+                </ol>
+            </div>
+
+            <h3>Conflict Resolution Strategy</h3>
+            <table>
+                <thead>
+                    <tr><th>Retry</th><th>Backoff</th><th>Action</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>2 ms</td>
+                        <td>Read new version, retry commit</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>4 ms</td>
+                        <td>Exponential backoff</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>8 ms</td>
+                        <td>Continue backing off</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>1024 ms</td>
+                        <td>Max retries, fail</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Scaling Behavior</h3>
+            <table>
+                <thead>
+                    <tr><th>Writers</th><th>Conflict Rate</th><th>Throughput</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2</td>
+                        <td>~5%</td>
+                        <td>~400 commits/sec</td>
+                        <td><span class="badge badge-success">Excellent</span></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>~26%</td>
+                        <td>~293 commits/sec</td>
+                        <td><span class="badge badge-success">Good</span></td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>~45%</td>
+                        <td>~200 commits/sec</td>
+                        <td><span class="badge badge-warning">Acceptable</span></td>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td>~65%</td>
+                        <td>~120 commits/sec</td>
+                        <td><span class="badge badge-warning">High Contention</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="alert alert-warning">
+                <strong>Production Recommendation:</strong> For tables with >10 concurrent writers, consider:
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li>Partition-level locking (reduce contention scope)</li>
+                    <li>Write batching (fewer, larger commits)</li>
+                    <li>Catalog-side queuing (serialize high-conflict operations)</li>
+                </ul>
+            </div>
+
+            <h3> Implementation</h3>
+            <p>Test uses real concurrency:</p>
+            <ul style="margin-left: 1.5rem;">
+                <li>Actual Python threading (not simulated)</li>
+                <li>Real version checking and conflicts</li>
+                <li>Actual retry logic with backoff</li>
+                <li>Wall-clock timing measurements</li>
+            </ul>
+
+            <div class="alert alert-success">
+                <strong>Conclusion:</strong> V4's optimistic locking provides good throughput for moderate 
+                concurrency (5-10 writers) with automatic conflict resolution. The retry mechanism ensures 
+                100% success rate while maintaining low latency.
+            </div>
         </section>
     </div>
 
