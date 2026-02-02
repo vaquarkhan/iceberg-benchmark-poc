@@ -787,6 +787,14 @@
                 </div>
 
                 <h3> Visualizations</h3>
+                
+                <div style="margin: 2rem 0;">
+                    <div class="chart-container" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); padding: 2rem; border-radius: 1.5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.12); border: 1px solid #e2e8f0; max-width: 900px; margin: 0 auto;">
+                        <h4 style="text-align: center; margin-bottom: 1.5rem; color: #1e293b; font-size: 1.1rem; font-weight: 700;">📊 Sorted vs Unsorted Data Impact</h4>
+                        <canvas id="tab0Chart1" style="max-height: 350px;"></canvas>
+                    </div>
+                </div>
+
                 <div class="charts-grid">
                     <div class="chart-container">
                         <h4>Row Group Partition Range Span</h4>
@@ -1337,6 +1345,14 @@
                 </table>
 
                 <h3> Performance Metrics Comparison</h3>
+                
+                <div style="margin: 2rem 0;">
+                    <div class="chart-container" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); padding: 2rem; border-radius: 1.5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.12); border: 1px solid #e2e8f0; max-width: 900px; margin: 0 auto;">
+                        <h4 style="text-align: center; margin-bottom: 1.5rem; color: #1e293b; font-size: 1.1rem; font-weight: 700;">🎯 All Benchmark Speedups</h4>
+                        <canvas id="tab3Chart1" style="max-height: 350px;"></canvas>
+                    </div>
+                </div>
+
                 <div class="summary-grid">
                     <div class="card">
                         <h3>Max Speedup</h3>
@@ -1513,6 +1529,13 @@
 
                 <h3>Scenario A: Hash Join vs Positional Join Performance</h3>
                 <p><strong>Question:</strong> Is positional join faster than path-based hash join?</p>
+                
+                <div style="margin: 2rem 0;">
+                    <div class="chart-container" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); padding: 2rem; border-radius: 1.5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.12); border: 1px solid #e2e8f0; max-width: 900px; margin: 0 auto;">
+                        <h4 style="text-align: center; margin-bottom: 1.5rem; color: #1e293b; font-size: 1.1rem; font-weight: 700;">⚡ Hash Join vs Positional Join Performance</h4>
+                        <canvas id="tab4Chart1" style="max-height: 350px;"></canvas>
+                    </div>
+                </div>
                 
                 <table>
                     <thead>
@@ -1830,6 +1853,13 @@
                 <h3>Scenario A: Commit Latency vs Batch Size</h3>
                 <p><strong>Question:</strong> How does commit performance scale with batch size?</p>
                 
+                <div style="margin: 2rem 0;">
+                    <div class="chart-container" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); padding: 2rem; border-radius: 1.5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.12); border: 1px solid #e2e8f0; max-width: 900px; margin: 0 auto;">
+                        <h4 style="text-align: center; margin-bottom: 1.5rem; color: #1e293b; font-size: 1.1rem; font-weight: 700;">🚀 Throughput vs Batch Size</h4>
+                        <canvas id="tab5Chart1" style="max-height: 350px;"></canvas>
+                    </div>
+                </div>
+                
                 <table>
                     <thead>
                         <tr><th>Batch Size</th><th>Commit Time</th><th>Metadata Size</th><th>Throughput</th></tr>
@@ -2024,6 +2054,13 @@
 
                 <h3>Scenario A: Tree Depth vs Query Performance</h3>
                 <p><strong>Question:</strong> How does tree depth affect query planning time?</p>
+                
+                <div style="margin: 2rem 0;">
+                    <div class="chart-container" style="background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); padding: 2rem; border-radius: 1.5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.12); border: 1px solid #e2e8f0; max-width: 900px; margin: 0 auto;">
+                        <h4 style="text-align: center; margin-bottom: 1.5rem; color: #1e293b; font-size: 1.1rem; font-weight: 700;">🌳 Tree Structure Performance Comparison</h4>
+                        <canvas id="tab6Chart1" style="max-height: 350px;"></canvas>
+                    </div>
+                </div>
                 
                 <h4>Small Table (1,000 files)</h4>
                 <table>
@@ -2889,6 +2926,64 @@ python quick_test.py</code></pre>
                 });
             }
 
+            // Tab 0 Chart: Sorted vs Unsorted Comparison (Grouped Bar)
+            const tab0Chart1Ctx = document.getElementById('tab0Chart1');
+            if (tab0Chart1Ctx) {
+                new Chart(tab0Chart1Ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Partition Range', 'Skip Rate', 'Bytes Read'],
+                        datasets: [{
+                            label: 'Unsorted Data',
+                            data: [99.8, 0, 100],
+                            backgroundColor: 'rgba(239, 68, 68, 0.85)',
+                            borderColor: 'rgb(220, 38, 38)',
+                            borderWidth: 2,
+                            borderRadius: 8
+                        }, {
+                            label: 'Sorted Data',
+                            data: [1.0, 99, 0.8],
+                            backgroundColor: 'rgba(16, 185, 129, 0.85)',
+                            borderColor: 'rgb(5, 150, 105)',
+                            borderWidth: 2,
+                            borderRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: { padding: 15, font: { size: 12, weight: '600' } }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                padding: 12,
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.dataset.label + ': ' + context.parsed.y.toFixed(1) + '%';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                title: { display: true, text: 'Percentage (%)', font: { size: 13, weight: 'bold' } },
+                                grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: { font: { size: 11, weight: '600' } }
+                            }
+                        },
+                        animation: { duration: 1500, easing: 'easeInOutQuart' }
+                    }
+                });
+            }
+
             // Tab 1 Chart: Inline vs External Planning Time
             const tab1Chart1Ctx = document.getElementById('tab1Chart1');
             if (tab1Chart1Ctx) {
@@ -3084,6 +3179,246 @@ python quick_test.py</code></pre>
                             duration: 1500,
                             easing: 'easeInOutQuart'
                         }
+                    }
+                });
+            }
+
+            // Tab 3 Chart: All Benchmark Speedups (Horizontal Bar)
+            const tab3Chart1Ctx = document.getElementById('tab3Chart1');
+            if (tab3Chart1Ctx) {
+                new Chart(tab3Chart1Ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Delete Storm\n(Inline MDV)', 'Wide Tables\n(Root Manifest)', 'Writer Org\n(Sorted Data)', 'Concurrent\n(5 Writers)'],
+                        datasets: [{
+                            label: 'Speedup Factor',
+                            data: [2370, 276892, 99.2, 1.3],
+                            backgroundColor: [
+                                'rgba(16, 185, 129, 0.85)',
+                                'rgba(59, 130, 246, 0.85)',
+                                'rgba(139, 92, 246, 0.85)',
+                                'rgba(251, 146, 60, 0.85)'
+                            ],
+                            borderColor: [
+                                'rgb(5, 150, 105)',
+                                'rgb(37, 99, 235)',
+                                'rgb(109, 40, 217)',
+                                'rgb(234, 88, 12)'
+                            ],
+                            borderWidth: 2,
+                            borderRadius: 8
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                padding: 12,
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.parsed.x.toLocaleString() + 'x faster';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                type: 'logarithmic',
+                                title: { display: true, text: 'Speedup (log scale)', font: { size: 13, weight: 'bold' } },
+                                grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                            },
+                            y: {
+                                grid: { display: false },
+                                ticks: { font: { size: 11, weight: '600' } }
+                            }
+                        },
+                        animation: { duration: 1500, easing: 'easeInOutQuart' }
+                    }
+                });
+            }
+
+            // Tab 4 Chart: Hash Join vs Positional Join (Line Chart)
+            const tab4Chart1Ctx = document.getElementById('tab4Chart1');
+            if (tab4Chart1Ctx) {
+                new Chart(tab4Chart1Ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['1K', '10K', '25K', '100K'],
+                        datasets: [{
+                            label: 'Hash Join',
+                            data: [0.46, 7.33, 21.39, 57.07],
+                            backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                            borderColor: 'rgb(37, 99, 235)',
+                            borderWidth: 3,
+                            pointRadius: 6,
+                            pointHoverRadius: 8,
+                            tension: 0.3
+                        }, {
+                            label: 'Positional Join',
+                            data: [0.49, 5.73, 18.88, 126.91],
+                            backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                            borderColor: 'rgb(5, 150, 105)',
+                            borderWidth: 3,
+                            pointRadius: 6,
+                            pointHoverRadius: 8,
+                            tension: 0.3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: { padding: 15, font: { size: 12, weight: '600' } }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                padding: 12,
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.dataset.label + ': ' + context.parsed.y.toFixed(2) + ' ms';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Join Time (ms)', font: { size: 13, weight: 'bold' } },
+                                grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                            },
+                            x: {
+                                title: { display: true, text: 'Manifest Size (entries)', font: { size: 13, weight: 'bold' } },
+                                grid: { display: false },
+                                ticks: { font: { size: 11, weight: '600' } }
+                            }
+                        },
+                        animation: { duration: 1500, easing: 'easeInOutQuart' }
+                    }
+                });
+            }
+
+            // Tab 5 Chart: Throughput vs Batch Size (Area Chart)
+            const tab5Chart1Ctx = document.getElementById('tab5Chart1');
+            if (tab5Chart1Ctx) {
+                new Chart(tab5Chart1Ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['1', '10', '50', '100', '500', '1000'],
+                        datasets: [{
+                            label: 'Throughput (files/sec)',
+                            data: [234, 2250, 9890, 8772, 12076, 20367],
+                            backgroundColor: 'rgba(139, 92, 246, 0.3)',
+                            borderColor: 'rgb(109, 40, 217)',
+                            borderWidth: 3,
+                            pointRadius: 6,
+                            pointHoverRadius: 8,
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                padding: 12,
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.parsed.y.toLocaleString() + ' files/sec';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Throughput (files/sec)', font: { size: 13, weight: 'bold' } },
+                                grid: { color: 'rgba(0, 0, 0, 0.05)' },
+                                ticks: {
+                                    callback: function(value) {
+                                        return value.toLocaleString();
+                                    }
+                                }
+                            },
+                            x: {
+                                title: { display: true, text: 'Batch Size (files)', font: { size: 13, weight: 'bold' } },
+                                grid: { display: false },
+                                ticks: { font: { size: 11, weight: '600' } }
+                            }
+                        },
+                        animation: { duration: 1500, easing: 'easeInOutQuart' }
+                    }
+                });
+            }
+
+            // Tab 6 Chart: Tree Structure Performance (Grouped Bar)
+            const tab6Chart1Ctx = document.getElementById('tab6Chart1');
+            if (tab6Chart1Ctx) {
+                new Chart(tab6Chart1Ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['1K Files', '10K Files', '50K Files'],
+                        datasets: [{
+                            label: 'Flat (1-level)',
+                            data: [48.46, 98.86, 1108.23],
+                            backgroundColor: 'rgba(16, 185, 129, 0.85)',
+                            borderColor: 'rgb(5, 150, 105)',
+                            borderWidth: 2,
+                            borderRadius: 8
+                        }, {
+                            label: '2-level Tree',
+                            data: [65.48, 599.85, 1876.45],
+                            backgroundColor: 'rgba(59, 130, 246, 0.85)',
+                            borderColor: 'rgb(37, 99, 235)',
+                            borderWidth: 2,
+                            borderRadius: 8
+                        }, {
+                            label: '3-level Tree',
+                            data: [376.64, 2345.67, 8234.12],
+                            backgroundColor: 'rgba(239, 68, 68, 0.85)',
+                            borderColor: 'rgb(220, 38, 38)',
+                            borderWidth: 2,
+                            borderRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: { padding: 15, font: { size: 12, weight: '600' } }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                padding: 12,
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.dataset.label + ': ' + context.parsed.y.toFixed(2) + ' ms';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                type: 'logarithmic',
+                                title: { display: true, text: 'Query Time (ms, log scale)', font: { size: 13, weight: 'bold' } },
+                                grid: { color: 'rgba(0, 0, 0, 0.05)' }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: { font: { size: 11, weight: '600' } }
+                            }
+                        },
+                        animation: { duration: 1500, easing: 'easeInOutQuart' }
                     }
                 });
             }
