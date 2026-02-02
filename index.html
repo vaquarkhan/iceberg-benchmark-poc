@@ -6,9 +6,10 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>Apache Iceberg V4 MDV Benchmark Suite - Complete Results</title>
+    <title>Apache Iceberg V4 MDV Benchmark Suite - Complete Results (v2.0)</title>
     <meta name="description" content="Comprehensive validation of Iceberg V4 Metadata Management Policy">
     <meta name="author" content="Viquar Khan">
+    <meta name="version" content="2.0-20260202">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <style>
         :root {
@@ -428,13 +429,13 @@
         <!-- Summary Tab -->
         <div id="summary" class="tab-content active">
             <section class="experiment">
-                <h2> Executive Summary - All 9 Benchmark Suites</h2>
+                <h2>📊 Executive Summary - All 10 Benchmark Suites</h2>
                 <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
                     Comprehensive validation of Apache Iceberg V4 metadata management with production-ready implementations.
                 </p>
 
                 <div class="alert alert-success">
-                    <strong>All Tests Passed:</strong> 9/9 benchmark suites validate V4 improvements for metadata management, 
+                    <strong>All Tests Passed:</strong> 10/10 benchmark suites validate V4 improvements for metadata management, 
                     delete vectors, and concurrent operations.
                 </div>
 
@@ -646,7 +647,7 @@
                 </div>
 
                 <div class="alert alert-success">
-                    <strong>✅ Specification Alignment:</strong> All 9 benchmark suites provide empirical validation 
+                    <strong>✅ Specification Alignment:</strong> All 10 benchmark suites provide empirical validation 
                     for key design decisions in the Apache Iceberg V4 Single File Commits proposal. Our measurements 
                     confirm that the proposed thresholds (4KB, 16MB) are based on physical constraints (S3 TTFB, JVM GC) 
                     rather than arbitrary choices.
