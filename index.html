@@ -558,7 +558,7 @@
                                 <small>"Inline storage of manifest DVs is likely sufficient"</small>
                             </td>
                             <td>Delete Storm (4KB)</td>
-                            <td>2,494x speedup proves inline is optimal</td>
+                            <td>28x speedup with parallel I/O (100 threads)</td>
                             <td><span class="badge badge-success">✓ VALIDATED</span></td>
                         </tr>
                         <tr>
@@ -2829,7 +2829,7 @@ python quick_test.py</code></pre>
                         labels: ['Delete Storm', 'Wide Tables', 'Writer Org', 'Concurrent'],
                         datasets: [{
                             label: 'Speedup Factor (x)',
-                            data: [2494, 276892, 99.2, 1],
+                            data: [28, 276892, 99.2, 1],
                             backgroundColor: [
                                 'rgba(16, 185, 129, 0.85)',
                                 'rgba(59, 130, 246, 0.85)',
