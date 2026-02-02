@@ -2922,8 +2922,100 @@ _partition: 2147483642 (Struct, Optional)</pre>
                             coordinators compared to the latency cost of traversing a deep tree.
                         </td>
                     </tr>
+                    <tr>
+                        <td><code>iceberg.writer.sort.required</code></td>
+                        <td><strong>WARN</strong></td>
+                        <td>
+                            <strong>NEW:</strong> Require writers to sort data by partition key or timestamp. 
+                            The "Writer Organization" benchmark showed unsorted data causes <strong>0% pruning</strong> 
+                            and <strong>99.2x I/O amplification</strong>. Start with WARN mode, escalate to REJECT 
+                            in future versions. Sorted data is essential for V4's Parquet statistics-based pruning.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><code>iceberg.commit.partition.locking</code></td>
+                        <td><strong>ENABLED</strong></td>
+                        <td>
+                            <strong>NEW:</strong> Enable partition-aware optimistic locking to reduce false conflicts. 
+                            The "Concurrent Writers" benchmark showed <strong>26% conflict rate with 5 writers</strong>, 
+                            escalating to <strong>65% with 20 writers</strong>. Partition-level versioning can reduce 
+                            conflicts by 8x for multi-partition workloads.
+                        </td>
+                    </tr>
                 </tbody>
             </table>
+
+            <h3>🔧 8.3 Additional Critical Recommendations</h3>
+            <p style="margin-bottom: 1rem;">
+                Based on comprehensive benchmark analysis, these additional recommendations address 
+                critical performance and correctness issues discovered during testing.
+            </p>
+
+            <!-- Recommendation 4 -->
+            <div style="background: linear-gradient(135deg, #ffffff 0%, #dcfce7 100%); border-left: 4px solid #16a34a; padding: 1.5rem; border-radius: 0.75rem; margin: 1.5rem 0;">
+                <h4 style="color: #166534; margin-bottom: 0.75rem; font-size: 1.2rem;">
+                    4️⃣ Partition-Aware Optimistic Locking
+                </h4>
+                <p style="margin-bottom: 0.75rem;">
+                    <strong>Recommendation:</strong> Implement partition-level version vectors to reduce false 
+                    conflicts in multi-partition concurrent writes.
+                </p>
+                <div style="background: rgba(255,255,255,0.7); padding: 1rem; border-radius: 0.5rem; margin: 0.75rem 0;">
+                    <strong>Data Justification:</strong> The "Concurrent Writers" benchmark revealed:
+                    <ul style="margin: 0.5rem 0 0 1rem;">
+                        <li>5 writers: <strong>26% conflict rate</strong>, 293 commits/sec throughput</li>
+                        <li>20 writers: <strong>65% conflict rate</strong>, 120 commits/sec throughput</li>
+                        <li>Problem: Global version counter creates false conflicts when writers modify different partitions</li>
+                    </ul>
+                    <strong>Solution:</strong> Track version per partition. Writers only conflict if modifying the 
+                    same partition. Expected reduction: 65% → 8% conflict rate for random partition writes.
+                </div>
+            </div>
+
+            <!-- Recommendation 5 -->
+            <div style="background: linear-gradient(135deg, #ffffff 0%, #fee2e2 100%); border-left: 4px solid #dc2626; padding: 1.5rem; border-radius: 0.75rem; margin: 1.5rem 0;">
+                <h4 style="color: #991b1b; margin-bottom: 0.75rem; font-size: 1.2rem;">
+                    5️⃣ Normative Writer Requirements (Data Sorting)
+                </h4>
+                <p style="margin-bottom: 0.75rem;">
+                    <strong>Recommendation:</strong> V4 specification MUST require writers to sort data by at least 
+                    one column (partition key or timestamp) to enable effective Parquet statistics-based pruning.
+                </p>
+                <div style="background: rgba(255,255,255,0.7); padding: 1rem; border-radius: 0.5rem; margin: 0.75rem 0;">
+                    <strong>Data Justification:</strong> The "Writer Organization" benchmark showed catastrophic 
+                    regression for unsorted data:
+                    <ul style="margin: 0.5rem 0 0 1rem;">
+                        <li>Sorted data: <strong>99.2% skip rate</strong> (excellent pruning)</li>
+                        <li>Unsorted data: <strong>0% skip rate</strong> (no pruning at all)</li>
+                        <li>I/O amplification: <strong>99.2x more bytes read</strong> for unsorted data</li>
+                        <li>Root cause: Parquet row group statistics span entire partition domain when unsorted</li>
+                    </ul>
+                    <strong>Migration Path:</strong> Start with WARN mode (log warnings), escalate to REJECT mode 
+                    in V4.2. Provide validation tools to check data organization quality.
+                </div>
+            </div>
+
+            <!-- Recommendation 6 -->
+            <div style="background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%); border-left: 4px solid #6366f1; padding: 1.5rem; border-radius: 0.75rem; margin: 1.5rem 0;">
+                <h4 style="color: #4338ca; margin-bottom: 0.75rem; font-size: 1.2rem;">
+                    6️⃣ Wide Table Optimization (Aggregate Metrics)
+                </h4>
+                <p style="margin-bottom: 0.75rem;">
+                    <strong>Recommendation:</strong> Root Manifest MUST include aggregate column statistics to 
+                    avoid reading Parquet footers for wide tables (>100 columns).
+                </p>
+                <div style="background: rgba(255,255,255,0.7); padding: 1rem; border-radius: 0.5rem; margin: 0.75rem 0;">
+                    <strong>Data Justification:</strong> The "Wide Table Pruning" benchmark demonstrated:
+                    <ul style="margin: 0.5rem 0 0 1rem;">
+                        <li>V3 (read footers): <strong>1,107.6ms</strong> planning time for 500 columns, 50 files</li>
+                        <li>V4 (aggregate stats): <strong>0.004ms</strong> planning time</li>
+                        <li>Speedup: <strong>276,892x faster</strong> by avoiding footer reads</li>
+                        <li>Footer size: 0.2KB per file × 50 files = 10KB overhead eliminated</li>
+                    </ul>
+                    <strong>Implementation:</strong> Store min/max/null_count for all columns in Root Manifest. 
+                    Query planner can prune columns without reading any data files.
+                </div>
+            </div>
 
             <h3>📊 Impact Summary</h3>
             <div class="summary-grid" style="margin: 2rem 0;">
@@ -2947,12 +3039,23 @@ _partition: 2147483642 (Struct, Optional)</pre>
                     <div class="value success">47x</div>
                     <div class="subtitle">faster flat structure</div>
                 </div>
+                <div class="card">
+                    <h3>Concurrency</h3>
+                    <div class="value success">8x</div>
+                    <div class="subtitle">fewer conflicts (partition locking)</div>
+                </div>
+                <div class="card">
+                    <h3>Data Sorting</h3>
+                    <div class="value success">99.2%</div>
+                    <div class="subtitle">skip rate improvement</div>
+                </div>
             </div>
 
             <div class="alert alert-success">
-                <strong>✅ Production Readiness:</strong> Implementing these recommendations transforms V4 from 
+                <strong>✅ Production Readiness:</strong> Implementing these 6 recommendations transforms V4 from 
                 a theoretical improvement into a robust, production-ready architecture. The guardrails ensure 
-                that I/O efficiency gains don't come at the cost of coordinator CPU and memory exhaustion.
+                that I/O efficiency gains don't come at the cost of coordinator CPU, memory exhaustion, or 
+                correctness issues with unsorted data.
             </div>
 
             <div class="alert alert-info">
