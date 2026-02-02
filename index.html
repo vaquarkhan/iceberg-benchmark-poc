@@ -90,6 +90,16 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
         
+        /* Header info cards hover effects */
+        header .info-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        header .info-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.25) !important;
+        }
+        
         /* Tab Navigation */
         .tabs {
             display: flex;
@@ -325,14 +335,51 @@
 </head>
 <body>
     <header>
-        <h1> Apache Iceberg V4 MDV Benchmark Suite</h1>
-        <p>Complete Validation of Metadata Management Policy</p>
-        <div class="meta">
-            <span> February 2026</span>
-            <span> Viquar Khan</span>
-            <span> vaquar.khan@gmail.com</span>
-            <span> <a href="https://www.linkedin.com/in/vaquar-khan-b695577/" style="color: white;">LinkedIn</a></span>
-            <span> 9 Benchmark Suites</span>
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h1> Apache Iceberg V4 MDV Benchmark Suite</h1>
+            <p style="font-size: 1.4rem; margin-bottom: 2.5rem;">Complete Validation of Metadata Management Policy</p>
+            
+            <!-- Info Cards Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                <!-- Date Card -->
+                <div class="info-card" style="background: rgba(255,255,255,0.15); padding: 1.25rem; border-radius: 1rem; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📅</div>
+                    <div style="font-size: 0.85rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.25rem;">Published</div>
+                    <div style="font-size: 1.1rem; font-weight: 700;">February 2026</div>
+                </div>
+                
+                <!-- Author Card -->
+                <div class="info-card" style="background: rgba(255,255,255,0.15); padding: 1.25rem; border-radius: 1rem; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">👤</div>
+                    <div style="font-size: 0.85rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.25rem;">Author</div>
+                    <div style="font-size: 1.1rem; font-weight: 700;">Viquar Khan</div>
+                </div>
+                
+                <!-- Email Card -->
+                <div class="info-card" style="background: rgba(255,255,255,0.15); padding: 1.25rem; border-radius: 1rem; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">📧</div>
+                    <div style="font-size: 0.85rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.25rem;">Contact</div>
+                    <div style="font-size: 0.95rem; font-weight: 600;">
+                        <a href="mailto:vaquar.khan@gmail.com" style="color: white; text-decoration: none;">vaquar.khan@gmail.com</a>
+                    </div>
+                </div>
+                
+                <!-- LinkedIn Card -->
+                <div class="info-card" style="background: rgba(255,255,255,0.15); padding: 1.25rem; border-radius: 1rem; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">💼</div>
+                    <div style="font-size: 0.85rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.25rem;">Connect</div>
+                    <div style="font-size: 1rem; font-weight: 600;">
+                        <a href="https://www.linkedin.com/in/vaquar-khan-b695577/" target="_blank" style="color: white; text-decoration: none;">LinkedIn Profile</a>
+                    </div>
+                </div>
+                
+                <!-- Benchmark Count Card -->
+                <div class="info-card" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(59, 130, 246, 0.3)); padding: 1.25rem; border-radius: 1rem; backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.3); text-align: center; box-shadow: 0 8px 16px rgba(0,0,0,0.2);">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎯</div>
+                    <div style="font-size: 0.85rem; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.25rem;">Test Suites</div>
+                    <div style="font-size: 1.8rem; font-weight: 800;">9</div>
+                </div>
+            </div>
         </div>
     </header>
 
