@@ -1,6 +1,6 @@
 # Apache Iceberg V4 Benchmark Suite
 
-**Last Updated:** February 2, 2026 - Version 2.2  
+**Last Updated:** February 2, 2026 - Version 2.2 (Final)  
 **Author:** Vaquar Khan (vaquar.khan@gmail.com)  
 **License:** Apache License 2.0  
 **Purpose:** Empirical validation of Apache Iceberg V4 metadata management policies
