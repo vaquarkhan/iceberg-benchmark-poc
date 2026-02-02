@@ -39,3 +39,7 @@ Thumbs.db
 # Temporary files
 *.tmp
 *.bak
+
+# Documentation (internal review files)
+FINAL_REVIEW.md
+DESIGN_RECOMMENDATIONS.md
