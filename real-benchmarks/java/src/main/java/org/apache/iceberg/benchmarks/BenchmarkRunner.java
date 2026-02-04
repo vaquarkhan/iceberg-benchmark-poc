@@ -24,6 +24,7 @@ import java.util.Map;
  *   - DeleteStorm: Inline vs External DVs with real S3 I/O
  *   - DVResolution: Hash vs Positional joins with real memory profiling
  *   - WriteOverhead: Sorted vs Unsorted writes with real commits
+ *   - ColumnFamilies: Column stitching performance (Peter Vary's proposal)
  */
 public class BenchmarkRunner {
     private static final Logger LOG = LoggerFactory.getLogger(BenchmarkRunner.class);
@@ -61,6 +62,9 @@ public class BenchmarkRunner {
                     break;
                 case "WriteOverhead":
                     result = runWriteOverheadBenchmark(config);
+                    break;
+                case "ColumnFamilies":
+                    result = runColumnFamiliesBenchmark(config);
                     break;
                 default:
                     LOG.error("Unknown benchmark: {}", config.benchmarkType);
@@ -109,6 +113,16 @@ public class BenchmarkRunner {
         LOG.info("=".repeat(70));
 
         WriteOverheadBenchmark benchmark = new WriteOverheadBenchmark(config);
+        return benchmark.run();
+    }
+
+    private static BenchmarkResult runColumnFamiliesBenchmark(BenchmarkConfig config) {
+        LOG.info("\n" + "=".repeat(70));
+        LOG.info("Running: Column Families Benchmark");
+        LOG.info("Measuring: Column stitching performance (Peter Vary's proposal)");
+        LOG.info("=".repeat(70));
+
+        ColumnFamiliesBenchmark benchmark = new ColumnFamiliesBenchmark(config);
         return benchmark.run();
     }
 
@@ -189,7 +203,7 @@ public class BenchmarkRunner {
         System.out.println("\nUsage:");
         System.out.println("  java -jar iceberg-v4-benchmarks.jar [OPTIONS]");
         System.out.println("\nRequired Options:");
-        System.out.println("  --benchmark <type>      Benchmark to run (DeleteStorm, DVResolution, WriteOverhead)");
+        System.out.println("  --benchmark <type>      Benchmark to run (DeleteStorm, DVResolution, WriteOverhead, ColumnFamilies)");
         System.out.println("  --s3-bucket <name>      S3 bucket name for test data");
         System.out.println("\nOptional:");
         System.out.println("  --num-files <n>         Number of files to test (default: 10000)");
@@ -199,6 +213,7 @@ public class BenchmarkRunner {
         System.out.println("\nExamples:");
         System.out.println("  java -jar iceberg-v4-benchmarks.jar --benchmark DeleteStorm --s3-bucket my-bucket --num-files 25000");
         System.out.println("  java -jar iceberg-v4-benchmarks.jar --benchmark DVResolution --s3-bucket my-bucket");
+        System.out.println("  java -jar iceberg-v4-benchmarks.jar --benchmark ColumnFamilies --s3-bucket my-bucket --num-files 100");
         System.out.println();
     }
 

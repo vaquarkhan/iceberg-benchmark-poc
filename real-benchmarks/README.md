@@ -136,6 +136,28 @@ java -jar target/iceberg-benchmarks.jar \
 - Real catalog commit operations
 - Network latency included
 
+### 4. Column Families (Peter Vary's Proposal) 🆕
+
+**Measures:** Column stitching performance with vertical data partitioning
+
+```bash
+java -jar target/iceberg-benchmarks.jar \
+  --benchmark ColumnFamilies \
+  --s3-bucket iceberg-v4-benchmarks \
+  --num-files 100
+```
+
+**What it does:**
+- Tests read performance: single file vs multiple column families
+- Tests write performance: monolithic vs parallel column family writes
+- Tests partial updates: full rewrite vs column family update
+- Tests narrow reads: ML workload (5 columns from 1000)
+- Validates if multi-threading can absorb ~10% read overhead
+
+**Reference:** https://github.com/apache/iceberg/pull/13306
+
+See [COLUMN_FAMILIES_BENCHMARK.md](COLUMN_FAMILIES_BENCHMARK.md) for detailed documentation.
+
 ## Key Differences from Python Simulations
 
 | Aspect | Python Simulation | Java Real Benchmark |
