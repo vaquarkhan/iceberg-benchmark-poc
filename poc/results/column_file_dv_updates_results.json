@@ -1,0 +1,58 @@
+[
+  {
+    "scenario": "Scenario A: Small Update (Incremental MERGE)",
+    "num_files": 10000,
+    "update_percentage": 1.0,
+    "full_rewrite_time_ms": 156.42,
+    "full_rewrite_bytes_written": 5200000,
+    "full_rewrite_io_ops": 2,
+    "column_update_time_ms": 8.73,
+    "column_update_bytes_written": 4200,
+    "column_update_io_ops": 3,
+    "speedup_factor": 17.92,
+    "bytes_saved_percentage": 99.92,
+    "io_reduction_percentage": -50.0
+  },
+  {
+    "scenario": "Scenario B: Partial Update (Partition MERGE)",
+    "num_files": 10000,
+    "update_percentage": 10.0,
+    "full_rewrite_time_ms": 158.21,
+    "full_rewrite_bytes_written": 5200000,
+    "full_rewrite_io_ops": 2,
+    "column_update_time_ms": 24.56,
+    "column_update_bytes_written": 40200,
+    "column_update_io_ops": 3,
+    "speedup_factor": 6.44,
+    "bytes_saved_percentage": 99.23,
+    "io_reduction_percentage": -50.0
+  },
+  {
+    "scenario": "Scenario C: Large Update (Full Table MERGE)",
+    "num_files": 10000,
+    "update_percentage": 100.0,
+    "full_rewrite_time_ms": 162.89,
+    "full_rewrite_bytes_written": 5200000,
+    "full_rewrite_io_ops": 2,
+    "column_update_time_ms": 178.34,
+    "column_update_bytes_written": 400200,
+    "column_update_io_ops": 3,
+    "speedup_factor": 0.91,
+    "bytes_saved_percentage": 92.30,
+    "io_reduction_percentage": -50.0
+  },
+  {
+    "scenario": "Scenario D: Medium Table (25k files, 5% update)",
+    "num_files": 25000,
+    "update_percentage": 5.0,
+    "full_rewrite_time_ms": 389.67,
+    "full_rewrite_bytes_written": 13000000,
+    "full_rewrite_io_ops": 2,
+    "column_update_time_ms": 38.92,
+    "column_update_bytes_written": 50200,
+    "column_update_io_ops": 3,
+    "speedup_factor": 10.01,
+    "bytes_saved_percentage": 99.61,
+    "io_reduction_percentage": -50.0
+  }
+]
